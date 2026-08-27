@@ -28,7 +28,13 @@ class FirebaseConfig {
   }
 
   /// Initialize Firebase before the Flutter widget tree is built.
-  static Future<void> initialize() async {
+  ///
+  /// On Android the `google-services` Gradle plugin makes the native SDK
+  /// auto-create the `[DEFAULT]` app from `android/app/google-services.json`
+  /// *before* Dart runs. Calling [Firebase.initializeApp] again with
+  /// explicit options would then throw `[core/duplicate-app]`, so we reuse
+  /// the app that already exists and only create one when none is present.
+  static Future<FirebaseApp> initialize() async {
     if (!isConfigured) {
       throw const FirebaseConfigException(
         'Firebase credentials are not configured. '
@@ -36,7 +42,19 @@ class FirebaseConfig {
         'the YOUR_* placeholders with your real Firebase values.',
       );
     }
-    await Firebase.initializeApp(options: androidOptions);
+
+    // Reuse the app created natively by google-services.json.
+    if (Firebase.apps.isNotEmpty) {
+      return Firebase.app();
+    }
+
+    try {
+      return await Firebase.initializeApp(options: androidOptions);
+    } on FirebaseException catch (e) {
+      // Race with the native initializer — fall back to the existing app.
+      if (e.code == 'duplicate-app') return Firebase.app();
+      rethrow;
+    }
   }
 }
 

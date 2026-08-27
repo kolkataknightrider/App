@@ -1,4 +1,4 @@
-package com.partix.partix
+package com.partix
 
 import io.flutter.embedding.android.FlutterActivity
 

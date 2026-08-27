@@ -23,24 +23,31 @@ void main() async {
 
   // Firebase must be configured before running the main app.
   bool firebaseOk = false;
+  String? firebaseError;
   try {
     await FirebaseConfig.initialize();
     firebaseOk = true;
-  } catch (e) {
-    debugPrint('Firebase not configured: $e');
+  } catch (e, st) {
+    // Never crash on startup: fall back to the diagnostics screen so the
+    // exact reason is visible on-device instead of a blank/dead app.
+    debugPrint('Firebase initialisation failed: $e\n$st');
+    firebaseError = e.toString();
     firebaseOk = false;
   }
 
-  runApp(ProviderScope(child: PartixApp(firebaseOk: firebaseOk)));
+  runApp(ProviderScope(
+    child: PartixApp(firebaseOk: firebaseOk, firebaseError: firebaseError),
+  ));
 }
 
 class PartixApp extends StatelessWidget {
   final bool firebaseOk;
-  const PartixApp({super.key, required this.firebaseOk});
+  final String? firebaseError;
+  const PartixApp({super.key, required this.firebaseOk, this.firebaseError});
 
   @override
   Widget build(BuildContext context) {
-    if (!firebaseOk) return const ConfigErrorApp();
+    if (!firebaseOk) return ConfigErrorApp(details: firebaseError);
     return const _FirebaseApp();
   }
 }
@@ -73,7 +80,9 @@ class _FirebaseApp extends ConsumerWidget {
 
 /// Shown when Firebase credentials have not been configured.
 class ConfigErrorApp extends StatelessWidget {
-  const ConfigErrorApp({super.key});
+  /// Raw initialisation error, shown so the cause is diagnosable on-device.
+  final String? details;
+  const ConfigErrorApp({super.key, this.details});
 
   @override
   Widget build(BuildContext context) {
@@ -131,6 +140,22 @@ class ConfigErrorApp extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white70, height: 1.5),
                     ),
+                    if (details != null) ...[
+                      const SizedBox(height: 20),
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.35),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text(
+                          details!,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: Colors.white54, fontSize: 12, height: 1.4),
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),

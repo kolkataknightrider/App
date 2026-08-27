@@ -8,7 +8,8 @@
 build/
 *.iml
 *.keystore
-/android/app/google-services.json
+# google-services.json is committed on purpose: it holds no secrets,
+# access is controlled by Firestore/Storage security rules.
 /android/key.properties
 ios/Runner/GoogleService-Info.plist
 
@@ -24,3 +25,8 @@ assets/animations/*.json
 android/local.properties
 android/.gradle/
 android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+
+# Admin tooling secrets
+tools/service-account.json
+tools/node_modules/
+tools/package-lock.json

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "314306763234",
+    "firebase_url": "https://partix-app-9ad69-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "partix-app-9ad69",
+    "storage_bucket": "partix-app-9ad69.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314306763234:android:46164f2f41a478db1a01bb",
+        "android_client_info": {
+          "package_name": "com.partix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314306763234-b6gturn43ufafsnrdvlkg7b6l64jp4t8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALFWzqxTtcZvyeM10FlwnBLzfTN8u5Xmg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "314306763234-b6gturn43ufafsnrdvlkg7b6l64jp4t8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
