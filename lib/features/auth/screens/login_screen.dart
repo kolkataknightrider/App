@@ -6,15 +6,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_strings.dart';
-import '../../../core/constants/app_dimensions.dart';
-import '../../../core/constants/app_assets.dart';
-import '../../../core/providers/providers.dart';
-import '../../../shared/widgets/animated_logo.dart';
-import '../../../shared/widgets/partix_loader.dart';
-import '../widgets/login_form_widget.dart';
-import '../widgets/biometric_button.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/providers/providers.dart';
+import 'package:partix/shared/widgets/animated_logo.dart';
+import 'package:partix/features/auth/widgets/login_form_widget.dart';
+import 'package:partix/features/auth/widgets/biometric_button.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -64,16 +61,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                   curve: Curves.easeOutBack,
                                 ),
                             const SizedBox(height: AppDimensions.sm),
-                            Text(
+                            const Text(
                               AppStrings.tagline,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.white70,
                                 fontSize: 14,
                                 letterSpacing: 1,
                               ),
-                            )
-                                .animate()
-                                .fadeIn(delay: 400.ms, duration: 500.ms),
+                            ).animate().fadeIn(delay: 400.ms, duration: 500.ms),
                           ],
                         ),
                       ],
@@ -91,20 +86,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           color: Colors.white.withOpacity(0.15),
                         ),
                       ),
-                      child: Column(
+                      child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             AppStrings.loginTitle,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Colors.white,
                               fontSize: 22,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          const SizedBox(height: AppDimensions.lg),
-                          const LoginFormWidget(),
-                          const BiometricButton(),
+                          SizedBox(height: AppDimensions.lg),
+                          LoginFormWidget(),
+                          BiometricButton(),
                         ],
                       ),
                     ),
@@ -124,18 +119,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                       ),
                     const SizedBox(height: AppDimensions.md),
-                    Text(
+                    const Text(
                       AppStrings.adminCredentialsNote,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Colors.white54,
                         fontSize: 12,
                       ),
                     ),
                     const SizedBox(height: AppDimensions.sm),
-                    Text(
+                    const Text(
                       '${AppStrings.appName} ${AppStrings.appVersion}',
-                      style: const TextStyle(color: Colors.white38, fontSize: 11),
+                      style: TextStyle(color: Colors.white38, fontSize: 11),
                     ),
                   ],
                 ),

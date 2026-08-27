@@ -4,8 +4,8 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
-import '../../core/constants/app_colors.dart';
-import '../../core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
 
 class CustomButton extends StatefulWidget {
   final String label;
@@ -47,13 +47,11 @@ class _CustomButtonState extends State<CustomButton> {
           height: AppDimensions.buttonHeight,
           width: double.infinity,
           decoration: BoxDecoration(
-            gradient: widget.backgroundColor != null
-                ? null
-                : AppColors.brandGradient,
+            gradient:
+                widget.backgroundColor != null ? null : AppColors.brandGradient,
             color: widget.backgroundColor ??
                 (disabled ? AppColors.textTertiary : null),
-            borderRadius:
-                BorderRadius.circular(AppDimensions.radiusButton),
+            borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
           ),
           alignment: Alignment.center,
           child: widget.isLoading
@@ -110,7 +108,8 @@ class CustomSecondaryButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
         ),
-        minimumSize: const Size(double.infinity, AppDimensions.buttonHeightSmall),
+        minimumSize:
+            const Size(double.infinity, AppDimensions.buttonHeightSmall),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

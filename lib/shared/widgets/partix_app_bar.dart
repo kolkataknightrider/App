@@ -5,10 +5,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../core/constants/app_colors.dart';
-import '../../core/constants/app_dimensions.dart';
-import '../../core/constants/app_routes.dart';
-import '../../core/constants/app_strings.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_routes.dart';
+import 'package:partix/core/constants/app_strings.dart';
 
 class PartixAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -68,8 +68,7 @@ class PartixAppBar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               IconButton(
                 icon: const Icon(Icons.notifications_outlined),
-                onPressed: () =>
-                    context.push(AppRoutes.notificationsRoute),
+                onPressed: () => context.push(AppRoutes.notificationsRoute),
               ),
               if (notificationCount > 0)
                 Positioned(
@@ -102,8 +101,8 @@ class PartixAppBar extends StatelessWidget implements PreferredSizeWidget {
               backgroundImage:
                   avatarUrl != null ? NetworkImage(avatarUrl!) : null,
               child: avatarUrl == null
-                  ? const Icon(Icons.person, size: 18,
-                      color: AppColors.brandPrimary)
+                  ? const Icon(Icons.person,
+                      size: 18, color: AppColors.brandPrimary)
                   : null,
             ),
           ),

@@ -4,8 +4,8 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/foundation.dart';
-import '../firebase/firestore_service.dart';
-import '../models/notification_model.dart';
+import 'package:partix/core/firebase/firestore_service.dart';
+import 'package:partix/core/models/notification_model.dart';
 
 class NotificationProvider extends ChangeNotifier {
   List<NotificationModel> _items = const [];

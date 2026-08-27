@@ -25,11 +25,11 @@ class AppStrings {
       'Your account has been deactivated. Contact Partix Admin.';
   static const String joiningFeeNotPaid =
       'Joining fee not paid. Please complete your payment.';
-  static const String invalidCredentials =
-      'Invalid Member ID or Password.';
+  static const String invalidCredentials = 'Invalid Member ID or Password.';
   static const String tooManyAttempts =
       'Too many failed attempts. Try again in 15 minutes.';
-  static const String lockoutRemaining = 'Locked out. Try again in {minutes} min';
+  static const String lockoutRemaining =
+      'Locked out. Try again in {minutes} min';
 
   // ── NAVIGATION ───────────────────────────────────────────
   static const String dashboard = 'Dashboard';
@@ -95,8 +95,7 @@ class AppStrings {
       'You have reached your 2 withdrawal limit for this month.';
   static const String withdrawalTooSoon =
       'Your next withdrawal is available in {days} days.';
-  static const String nextWindow =
-      'Next window opens on {date}.';
+  static const String nextWindow = 'Next window opens on {date}.';
   static const String eligibleFrom = 'Eligible from: {date}';
   static const String max = 'MAX';
   static const String upiRecommended = 'Recommended — Faster';

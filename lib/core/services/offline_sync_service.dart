@@ -7,11 +7,11 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import '../models/user_model.dart';
-import '../models/earning_model.dart';
-import '../models/team_member_model.dart';
-import '../models/withdrawal_model.dart';
-import '../models/notification_model.dart';
+import 'package:partix/core/models/user_model.dart';
+import 'package:partix/core/models/earning_model.dart';
+import 'package:partix/core/models/team_member_model.dart';
+import 'package:partix/core/models/withdrawal_model.dart';
+import 'package:partix/core/models/notification_model.dart';
 
 /// Hive box names (per SECTION 14 spec).
 class HiveBoxes {
@@ -55,13 +55,13 @@ class OfflineSyncService {
     ]);
 
     _connectivity.onConnectivityChanged.listen((result) {
-      final online = !result.contains(ConnectivityResult.none);
+      final online = result != ConnectivityResult.none;
       _isOnline = online;
       _connectionController.add(online);
     });
 
     final current = await _connectivity.checkConnectivity();
-    _isOnline = !current.contains(ConnectivityResult.none);
+    _isOnline = current != ConnectivityResult.none;
   }
 
   // ── USER ──────────────────────────────────────────────────
@@ -135,9 +135,7 @@ class OfflineSyncService {
     final box = Hive.box(HiveBoxes.notifications);
     await box.put(
       'list',
-      list
-          .map((e) => <String, dynamic>{'id': e.id, ...e.toJson()})
-          .toList(),
+      list.map((e) => <String, dynamic>{'id': e.id, ...e.toJson()}).toList(),
     );
   }
 

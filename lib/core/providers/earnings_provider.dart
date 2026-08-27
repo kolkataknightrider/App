@@ -4,10 +4,9 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/foundation.dart';
-import '../firebase/firestore_service.dart';
-import '../models/earning_model.dart';
-import '../services/mlm_calculator.dart';
-import '../utils/date_formatter.dart';
+import 'package:partix/core/firebase/firestore_service.dart';
+import 'package:partix/core/models/earning_model.dart';
+import 'package:partix/core/services/mlm_calculator.dart';
 
 enum EarningPeriod { today, week, month, lastMonth, custom }
 

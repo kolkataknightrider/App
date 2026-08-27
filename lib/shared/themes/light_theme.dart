@@ -4,9 +4,8 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
-import '../../core/constants/app_colors.dart';
-import '../../core/constants/app_text_styles.dart';
-import '../../core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
 
 ThemeData buildLightTheme() {
   const bg = AppColors.lightBgPrimary;
@@ -20,10 +19,8 @@ ThemeData buildLightTheme() {
       primary: AppColors.brandPrimary,
       secondary: AppColors.brandSecondary,
       surface: AppColors.lightCard,
-      background: bg,
       error: AppColors.error,
       onPrimary: Colors.white,
-      onBackground: AppColors.lightTextPrimary,
       onSurface: AppColors.lightTextPrimary,
     ),
     appBarTheme: const AppBarTheme(
@@ -48,8 +45,7 @@ ThemeData buildLightTheme() {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Colors.white,
-      contentPadding:
-          const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
         borderSide: BorderSide.none,

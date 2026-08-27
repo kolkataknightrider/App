@@ -5,12 +5,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/models/user_model.dart';
-import '../../../../core/providers/providers.dart';
-import '../../../../shared/widgets/section_card.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/models/user_model.dart';
+import 'package:partix/core/providers/providers.dart';
+import 'package:partix/shared/widgets/section_card.dart';
 
 class PersonalInfoSection extends ConsumerStatefulWidget {
   final UserModel user;
@@ -48,9 +48,7 @@ class _PersonalInfoSectionState extends ConsumerState<PersonalInfoSection> {
     return SectionCard(
       title: AppStrings.personalInformation,
       trailing: TextButton(
-        onPressed: _editing
-            ? _save
-            : () => setState(() => _editing = true),
+        onPressed: _editing ? _save : () => setState(() => _editing = true),
         child: Text(_editing ? 'Save' : 'Edit'),
       ),
       child: _editing
@@ -104,8 +102,8 @@ class _PersonalInfoSectionState extends ConsumerState<PersonalInfoSection> {
           ),
           Expanded(
             child: Text(value,
-                style: const TextStyle(
-                    fontWeight: FontWeight.w600, fontSize: 13)),
+                style:
+                    const TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
           ),
         ],
       ),

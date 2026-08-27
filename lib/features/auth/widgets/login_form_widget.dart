@@ -5,11 +5,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/constants/app_strings.dart';
-import '../../../core/utils/validators.dart';
-import '../../../shared/widgets/custom_text_field.dart';
-import '../../../shared/widgets/custom_button.dart';
-import '../../../core/providers/providers.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/utils/validators.dart';
+import 'package:partix/shared/widgets/custom_text_field.dart';
+import 'package:partix/shared/widgets/custom_button.dart';
+import 'package:partix/core/providers/providers.dart';
 
 class LoginFormWidget extends ConsumerStatefulWidget {
   const LoginFormWidget({super.key});

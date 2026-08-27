@@ -5,11 +5,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/models/team_member_model.dart';
-import '../../../../core/providers/providers.dart';
-import '../../../../shared/widgets/status_badge.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/models/team_member_model.dart';
+import 'package:partix/core/providers/providers.dart';
+import 'package:partix/shared/widgets/status_badge.dart';
 
 class TreeNodeWidget extends ConsumerStatefulWidget {
   final TeamMemberModel node;
@@ -85,9 +84,7 @@ class _TreeNodeWidgetState extends ConsumerState<TreeNodeWidget> {
                   children: [
                     Expanded(
                       child: Text(
-                        widget.isRoot
-                            ? 'YOU'
-                            : widget.node.fullName,
+                        widget.isRoot ? 'YOU' : widget.node.fullName,
                         style: const TextStyle(
                             fontWeight: FontWeight.w700, fontSize: 13),
                         overflow: TextOverflow.ellipsis,

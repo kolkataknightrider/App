@@ -38,8 +38,7 @@ class FirestoreCollections {
       '$notifications/$userId/$notificationMessages';
 
   /// app_config/settings
-  static String get appConfigSettingsPath =>
-      '$appConfig/$appConfigSettingsDoc';
+  static String get appConfigSettingsPath => '$appConfig/$appConfigSettingsDoc';
 }
 
 /// Field-name constants for the `users` document.
@@ -81,10 +80,8 @@ class UserFields {
   static const String bankDetails = 'bankDetails';
   static const String upiDetails = 'upiDetails';
   static const String lastWithdrawalDate = 'lastWithdrawalDate';
-  static const String withdrawalCountThisMonth =
-      'withdrawalCountThisMonth';
-  static const String nextWithdrawalEligibleDate =
-      'nextWithdrawalEligibleDate';
+  static const String withdrawalCountThisMonth = 'withdrawalCountThisMonth';
+  static const String nextWithdrawalEligibleDate = 'nextWithdrawalEligibleDate';
   static const String language = 'language';
   static const String theme = 'theme';
   static const String biometricEnabled = 'biometricEnabled';

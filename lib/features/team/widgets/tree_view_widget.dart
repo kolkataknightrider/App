@@ -5,9 +5,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/providers/providers.dart';
-import 'tree_node_widget.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/providers/providers.dart';
+import 'package:partix/features/team/widgets/tree_node_widget.dart';
 
 class TreeViewWidget extends ConsumerWidget {
   const TreeViewWidget({super.key});

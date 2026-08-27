@@ -12,13 +12,11 @@ void main() {
     });
 
     test('L1 commission is 20% of ₹199', () {
-      expect(MLMConfig.calculateCommission(1),
-          closeTo(199 * 0.20, 0.001));
+      expect(MLMConfig.calculateCommission(1), closeTo(199 * 0.20, 0.001));
     });
 
     test('L5 commission is 3% of ₹199', () {
-      expect(MLMConfig.calculateCommission(5),
-          closeTo(199 * 0.03, 0.001));
+      expect(MLMConfig.calculateCommission(5), closeTo(199 * 0.03, 0.001));
     });
 
     test('unknown level yields zero commission', () {
@@ -44,6 +42,7 @@ void main() {
         MLMConfig.isWithdrawalEligible(
           lastWithdrawalDate: last,
           withdrawalCountThisMonth: 0,
+          now: now,
         ),
         isTrue,
       );
@@ -55,6 +54,7 @@ void main() {
         MLMConfig.isWithdrawalEligible(
           lastWithdrawalDate: last,
           withdrawalCountThisMonth: 0,
+          now: now,
         ),
         isFalse,
       );
@@ -65,6 +65,7 @@ void main() {
         MLMConfig.isWithdrawalEligible(
           lastWithdrawalDate: now.subtract(const Duration(days: 30)),
           withdrawalCountThisMonth: 2,
+          now: now,
         ),
         isFalse,
       );

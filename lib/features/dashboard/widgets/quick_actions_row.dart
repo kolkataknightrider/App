@@ -6,11 +6,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_routes.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/models/user_model.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_routes.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/models/user_model.dart';
 
 class QuickActionsRow extends StatelessWidget {
   final UserModel user;

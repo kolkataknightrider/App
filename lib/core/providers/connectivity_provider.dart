@@ -5,7 +5,7 @@
 
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../services/offline_sync_service.dart';
+import 'package:partix/core/services/offline_sync_service.dart';
 
 final connectivityProvider = StreamProvider<bool>((ref) {
   final controller = StreamController<bool>.broadcast();

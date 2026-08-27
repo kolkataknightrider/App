@@ -7,8 +7,7 @@ class Validators {
   Validators._();
 
   /// Member ID format: PTX-YYYY-NNNNN  (e.g. PTX-2024-00001)
-  static final RegExp memberIdRegex =
-      RegExp(r'^PTX-\d{4}-\d{5}$');
+  static final RegExp memberIdRegex = RegExp(r'^PTX-\d{4}-\d{5}$');
 
   static bool isValidMemberId(String value) =>
       memberIdRegex.hasMatch(value.trim().toUpperCase());

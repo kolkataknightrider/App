@@ -4,16 +4,15 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/models/user_model.dart';
-import '../../../../shared/widgets/status_badge.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/models/user_model.dart';
+import 'package:partix/shared/widgets/status_badge.dart';
 
 class PaymentMethodSelector extends StatefulWidget {
   final UserModel user;
-  final void Function(String method, Map<String, dynamic> details)
-      onChanged;
+  final void Function(String method, Map<String, dynamic> details) onChanged;
 
   const PaymentMethodSelector({
     super.key,
@@ -42,8 +41,7 @@ class _PaymentMethodSelectorState extends State<PaymentMethodSelector> {
     } else {
       final bank = widget.user.bankDetails;
       widget.onChanged('bank', {
-        'accountNumber':
-            bank != null ? _last4(bank.accountNumber) : '',
+        'accountNumber': bank != null ? _last4(bank.accountNumber) : '',
         'bankName': bank?.bankName ?? '',
         'ifscCode': bank?.ifscCode ?? '',
       });
@@ -111,7 +109,8 @@ class _PaymentMethodSelectorState extends State<PaymentMethodSelector> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('${bank.bankName} · XXXX ${_last4(bank.accountNumber)}',
+                          Text(
+                              '${bank.bankName} · XXXX ${_last4(bank.accountNumber)}',
                               style: const TextStyle(
                                   fontWeight: FontWeight.w600, fontSize: 13)),
                           Text('IFSC: ${bank.ifscCode}',
@@ -153,9 +152,7 @@ class _PaymentMethodSelectorState extends State<PaymentMethodSelector> {
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
           border: Border.all(
-            color: selected
-                ? AppColors.brandPrimary
-                : Colors.transparent,
+            color: selected ? AppColors.brandPrimary : Colors.transparent,
             width: 1.5,
           ),
         ),

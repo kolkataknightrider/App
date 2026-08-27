@@ -22,8 +22,7 @@ class AppRoutes {
   static const String notificationsRoute = '/notifications';
 
   /// Build the member detail path for a given [memberId].
-  static String memberDetailPath(String memberId) =>
-      '/home/team/$memberId';
+  static String memberDetailPath(String memberId) => '/home/team/$memberId';
 
   /// Path helpers for named navigation if needed.
   static const String loginName = 'login';

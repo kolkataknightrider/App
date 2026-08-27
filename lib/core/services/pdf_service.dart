@@ -8,10 +8,10 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
 import 'package:open_file/open_file.dart';
-import '../models/earning_model.dart';
-import '../models/user_model.dart';
-import '../utils/currency_formatter.dart';
-import '../utils/date_formatter.dart';
+import 'package:partix/core/models/earning_model.dart';
+import 'package:partix/core/models/user_model.dart';
+import 'package:partix/core/utils/currency_formatter.dart';
+import 'package:partix/core/utils/date_formatter.dart';
 
 /// Generates a downloadable earnings summary PDF for a period.
 class PdfService {
@@ -25,8 +25,8 @@ class PdfService {
     required double total,
   }) async {
     final pdf = pw.Document();
-    final primary = PdfColor.fromInt(0xFF6C63FF);
-    final accent = PdfColor.fromInt(0xFF06B6D4);
+    const primary = PdfColor.fromInt(0xFF6C63FF);
+    const accent = PdfColor.fromInt(0xFF06B6D4);
 
     pdf.addPage(
       pw.Page(
@@ -44,13 +44,12 @@ class PdfService {
                           fontSize: 24,
                           fontWeight: pw.FontWeight.bold,
                           color: primary)),
-                  pw.Text(periodLabel,
-                      style: const pw.TextStyle(fontSize: 12)),
+                  pw.Text(periodLabel, style: const pw.TextStyle(fontSize: 12)),
                 ],
               ),
               pw.SizedBox(height: 4),
               pw.Text('Earnings Report',
-                  style: pw.TextStyle(fontSize: 16, color: accent)),
+                  style: const pw.TextStyle(fontSize: 16, color: accent)),
               pw.Divider(thickness: 1.5, color: primary),
               pw.SizedBox(height: 12),
               pw.Text('Member: ${user.fullName} (${user.memberId})',
@@ -60,7 +59,7 @@ class PdfService {
               pw.SizedBox(height: 16),
               pw.Container(
                 padding: const pw.EdgeInsets.all(16),
-                decoration: pw.BoxDecoration(
+                decoration: const pw.BoxDecoration(
                   color: PdfColor.fromInt(0xFFF1F1F6),
                   borderRadius: pw.BorderRadius.all(pw.Radius.circular(8)),
                 ),
@@ -74,8 +73,7 @@ class PdfService {
                             fontSize: 22,
                             fontWeight: pw.FontWeight.bold,
                             color: primary)),
-                    pw.Text(
-                        'From ${earnings.length} transactions',
+                    pw.Text('From ${earnings.length} transactions',
                         style: const pw.TextStyle(fontSize: 10)),
                   ],
                 ),
@@ -88,8 +86,7 @@ class PdfService {
               _earningsTable(earnings),
               pw.Spacer(),
               pw.Divider(),
-              pw.Text(
-                  'Generated on ${DateFormatter.medium(DateTime.now())}',
+              pw.Text('Generated on ${DateFormatter.medium(DateTime.now())}',
                   style: const pw.TextStyle(fontSize: 9)),
             ],
           ),
@@ -111,8 +108,8 @@ class PdfService {
         children: [
           pw.Padding(
               padding: const pw.EdgeInsets.all(4),
-              child: pw.Text(e.typeLabel,
-                  style: const pw.TextStyle(fontSize: 9))),
+              child:
+                  pw.Text(e.typeLabel, style: const pw.TextStyle(fontSize: 9))),
           pw.Padding(
               padding: const pw.EdgeInsets.all(4),
               child: pw.Text(e.fromUserName,
@@ -130,11 +127,11 @@ class PdfService {
     }).toList();
 
     return pw.Table(
-      border: pw.TableBorder.all(color: PdfColor.fromInt(0xFFE2E2EE)),
+      border: pw.TableBorder.all(color: const PdfColor.fromInt(0xFFE2E2EE)),
       children: [
         pw.TableRow(
           decoration:
-              pw.BoxDecoration(color: PdfColor.fromInt(0xFF6C63FF)),
+              const pw.BoxDecoration(color: PdfColor.fromInt(0xFF6C63FF)),
           children: [
             _header('Type'),
             _header('From'),
@@ -153,7 +150,7 @@ class PdfService {
           style: pw.TextStyle(
               fontSize: 9,
               fontWeight: pw.FontWeight.bold,
-              color: PdfColor.fromInt(0xFFFFFFFF))));
+              color: const PdfColor.fromInt(0xFFFFFFFF))));
 
   /// Saves the PDF and opens it via the OS viewer.
   static Future<void> generateAndOpen({

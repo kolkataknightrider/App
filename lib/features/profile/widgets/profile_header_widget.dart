@@ -4,13 +4,13 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/models/user_model.dart';
-import '../../../../core/utils/currency_formatter.dart';
-import '../../../../core/utils/date_formatter.dart';
-import '../../../../shared/widgets/status_badge.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/models/user_model.dart';
+import 'package:partix/core/utils/currency_formatter.dart';
+import 'package:partix/core/utils/date_formatter.dart';
+import 'package:partix/shared/widgets/status_badge.dart';
 
 class ProfileHeaderWidget extends StatelessWidget {
   final UserModel user;
@@ -48,8 +48,7 @@ class ProfileHeaderWidget extends StatelessWidget {
                       ? NetworkImage(user.profilePhotoUrl!)
                       : null,
                   child: user.profilePhotoUrl == null
-                      ? const Icon(Icons.person,
-                          size: 50, color: Colors.white)
+                      ? const Icon(Icons.person, size: 50, color: Colors.white)
                       : null,
                 ),
                 Positioned(
@@ -75,8 +74,7 @@ class ProfileHeaderWidget extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                   color: Colors.white)),
           const SizedBox(height: 4),
-          Text(user.memberId,
-              style: const TextStyle(color: Colors.white70)),
+          Text(user.memberId, style: const TextStyle(color: Colors.white70)),
           const SizedBox(height: 6),
           StatusBadge.rank(user.rank),
           const SizedBox(height: 6),
@@ -91,8 +89,7 @@ class ProfileHeaderWidget extends StatelessWidget {
               _stat('${user.totalTeamSize}', 'Team'),
               _stat('${user.directReferrals}', 'Direct'),
               _stat('${user.rankLevel}', 'Rank'),
-              _stat(
-                  CurrencyFormatter.compact(user.grossCareerEarnings),
+              _stat(CurrencyFormatter.compact(user.grossCareerEarnings),
                   'Earned'),
             ],
           ),

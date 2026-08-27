@@ -5,18 +5,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/firebase/auth_service.dart';
-import '../../../../core/models/earning_model.dart';
-import '../../../../core/providers/providers.dart';
-import '../../../../core/services/pdf_service.dart';
-import '../../../../core/utils/currency_formatter.dart';
-import '../widgets/period_selector_bar.dart';
-import '../widgets/earnings_type_card.dart';
-import '../widgets/level_breakdown_table.dart';
-import '../widgets/earnings_transaction_item.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/firebase/auth_service.dart';
+import 'package:partix/core/providers/providers.dart';
+import 'package:partix/core/services/pdf_service.dart';
+import 'package:partix/core/utils/currency_formatter.dart';
+import 'package:partix/features/earnings/widgets/period_selector_bar.dart';
+import 'package:partix/features/earnings/widgets/earnings_type_card.dart';
+import 'package:partix/features/earnings/widgets/level_breakdown_table.dart';
+import 'package:partix/features/earnings/widgets/earnings_transaction_item.dart';
 
 class EarningsDetailScreen extends ConsumerStatefulWidget {
   const EarningsDetailScreen({super.key});
@@ -26,8 +25,7 @@ class EarningsDetailScreen extends ConsumerStatefulWidget {
       _EarningsDetailScreenState();
 }
 
-class _EarningsDetailScreenState
-    extends ConsumerState<EarningsDetailScreen> {
+class _EarningsDetailScreenState extends ConsumerState<EarningsDetailScreen> {
   @override
   void initState() {
     super.initState();
@@ -47,8 +45,8 @@ class _EarningsDetailScreenState
     // Group by type for the type cards.
     final Map<String, _TypeSummary> byType = {};
     for (final e in periodEarnings) {
-      final s = byType.putIfAbsent(
-          e.type, () => _TypeSummary(e.typeLabel, 0, 0));
+      final s =
+          byType.putIfAbsent(e.type, () => _TypeSummary(e.typeLabel, 0, 0));
       s.amount += e.amount;
       s.count += 1;
     }
@@ -107,14 +105,12 @@ class _EarningsDetailScreenState
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemCount: byType.length,
-                      separatorBuilder: (_, __) =>
-                          const SizedBox(width: 12),
+                      separatorBuilder: (_, __) => const SizedBox(width: 12),
                       itemBuilder: (_, i) {
                         final entry = byType.entries.elementAt(i);
                         final s = entry.value;
-                        final percent = total > 0
-                            ? (s.amount / total) * 100
-                            : 0.0;
+                        final percent =
+                            total > 0 ? (s.amount / total) * 100 : 0.0;
                         return EarningsTypeCard(
                           label: s.label,
                           amount: s.amount,
@@ -161,15 +157,13 @@ class _EarningsDetailScreenState
                       padding: EdgeInsets.symmetric(vertical: 24),
                       child: Center(
                         child: Text('No transactions in this period',
-                            style:
-                                TextStyle(color: AppColors.textSecondary)),
+                            style: TextStyle(color: AppColors.textSecondary)),
                       ),
                     )
                   else
                     ...periodEarnings
                         .take(20)
-                        .map((e) => EarningsTransactionItem(earning: e))
-                        .toList(),
+                        .map((e) => EarningsTransactionItem(earning: e)),
                   const SizedBox(height: AppDimensions.xl),
                 ],
               ),

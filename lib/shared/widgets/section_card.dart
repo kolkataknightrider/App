@@ -4,7 +4,7 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
-import '../../core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
 
 class SectionCard extends StatelessWidget {
   final String title;

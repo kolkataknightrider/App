@@ -6,13 +6,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/models/user_model.dart';
-import '../../../../core/providers/providers.dart';
-import '../../../../core/firebase/auth_service.dart';
-import '../../../../shared/widgets/section_card.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/models/user_model.dart';
+import 'package:partix/core/providers/providers.dart';
+import 'package:partix/core/firebase/auth_service.dart';
+import 'package:partix/shared/widgets/section_card.dart';
 
 class SecuritySection extends ConsumerStatefulWidget {
   final UserModel user;
@@ -31,7 +30,8 @@ class _SecuritySectionState extends ConsumerState<SecuritySection> {
         children: [
           ListTile(
             contentPadding: EdgeInsets.zero,
-            leading: const Icon(Icons.lock_outline, color: AppColors.brandPrimary),
+            leading:
+                const Icon(Icons.lock_outline, color: AppColors.brandPrimary),
             title: const Text(AppStrings.changePassword),
             trailing: const Icon(Icons.chevron_right),
             onTap: _changePassword,
@@ -39,7 +39,8 @@ class _SecuritySectionState extends ConsumerState<SecuritySection> {
           const Divider(height: 1),
           SwitchListTile(
             contentPadding: EdgeInsets.zero,
-            secondary: const Icon(Icons.fingerprint, color: AppColors.brandPrimary),
+            secondary:
+                const Icon(Icons.fingerprint, color: AppColors.brandPrimary),
             title: const Text(AppStrings.biometricLogin),
             value: widget.user.biometricEnabled,
             onChanged: (v) async {
@@ -92,8 +93,7 @@ class _SecuritySectionState extends ConsumerState<SecuritySection> {
           ElevatedButton(
             onPressed: () async {
               try {
-                final email =
-                    AuthService.memberIdToEmail(widget.user.memberId);
+                final email = AuthService.memberIdToEmail(widget.user.memberId);
                 final cred = EmailAuthProvider.credential(
                   email: email,
                   password: oldCtrl.text,
@@ -105,14 +105,13 @@ class _SecuritySectionState extends ConsumerState<SecuritySection> {
                 if (mounted) {
                   Navigator.pop(context);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Password updated')));
+                      const SnackBar(content: Text('Password updated')));
                 }
               } catch (e) {
                 if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                        content: Text('Failed: ${e.toString()}'),
-                        backgroundColor: Colors.redAccent));
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('Failed: ${e.toString()}'),
+                      backgroundColor: Colors.redAccent));
                 }
               }
             },

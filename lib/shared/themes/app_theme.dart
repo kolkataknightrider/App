@@ -4,8 +4,8 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
-import 'dark_theme.dart';
-import 'light_theme.dart';
+import 'package:partix/shared/themes/dark_theme.dart';
+import 'package:partix/shared/themes/light_theme.dart';
 
 /// PARTIX theme manager.
 class AppTheme {

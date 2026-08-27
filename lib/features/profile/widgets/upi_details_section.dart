@@ -5,16 +5,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/models/user_model.dart';
-import '../../../../core/models/bank_details_model.dart';
-import '../../../../core/providers/providers.dart';
-import '../../../../core/firebase/firestore_service.dart';
-import '../../../../core/utils/validators.dart';
-import '../../../../shared/widgets/section_card.dart';
-import '../../../../shared/widgets/status_badge.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/models/user_model.dart';
+import 'package:partix/core/providers/providers.dart';
+import 'package:partix/core/firebase/firestore_service.dart';
+import 'package:partix/core/utils/validators.dart';
+import 'package:partix/shared/widgets/section_card.dart';
+import 'package:partix/shared/widgets/status_badge.dart';
 
 class UpiDetailsSection extends ConsumerStatefulWidget {
   final UserModel user;
@@ -41,9 +39,8 @@ class _UpiDetailsSectionState extends ConsumerState<UpiDetailsSection> {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text(widget.user.upiDetails == null
-            ? 'Add UPI ID'
-            : 'Edit UPI ID'),
+        title:
+            Text(widget.user.upiDetails == null ? 'Add UPI ID' : 'Edit UPI ID'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -71,15 +68,20 @@ class _UpiDetailsSectionState extends ConsumerState<UpiDetailsSection> {
     final err = Validators.validateUpi(_idCtrl.text);
     if (err != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(err), backgroundColor: Colors.redAccent));
+          SnackBar(content: Text(err), backgroundColor: Colors.redAccent));
       return;
     }
+    // Capture navigator/messenger before the await so we never touch a
+    // BuildContext across an async gap.
+    final navigator = Navigator.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+
     await FirestoreService.instance.updateUpiDetails(widget.user.uid, {
       'upiId': _idCtrl.text.trim(),
       'upiName': _nameCtrl.text.trim(),
       'isVerified': false,
     });
-    Navigator.pop(context);
+    navigator.pop();
     ref.read(userProvider).setUser(widget.user.copyWith(
           upiDetails: UpiDetailsModel(
             upiId: _idCtrl.text.trim(),
@@ -87,10 +89,7 @@ class _UpiDetailsSectionState extends ConsumerState<UpiDetailsSection> {
             isVerified: false,
           ),
         ));
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('UPI details saved')));
-    }
+    messenger.showSnackBar(const SnackBar(content: Text('UPI details saved')));
   }
 
   @override

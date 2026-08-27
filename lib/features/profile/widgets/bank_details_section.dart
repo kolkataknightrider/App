@@ -5,24 +5,22 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/models/user_model.dart';
-import '../../../../core/models/bank_details_model.dart';
-import '../../../../core/providers/providers.dart';
-import '../../../../core/utils/encryption_helper.dart';
-import '../../../../core/utils/validators.dart';
-import '../../../../shared/widgets/section_card.dart';
-import '../../../../shared/widgets/status_badge.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/models/user_model.dart';
+import 'package:partix/core/models/bank_details_model.dart';
+import 'package:partix/core/providers/providers.dart';
+import 'package:partix/core/utils/encryption_helper.dart';
+import 'package:partix/core/utils/validators.dart';
+import 'package:partix/shared/widgets/section_card.dart';
+import 'package:partix/shared/widgets/status_badge.dart';
 
 class BankDetailsSection extends ConsumerStatefulWidget {
   final UserModel user;
   const BankDetailsSection({super.key, required this.user});
 
   @override
-  ConsumerState<BankDetailsSection> createState() =>
-      _BankDetailsSectionState();
+  ConsumerState<BankDetailsSection> createState() => _BankDetailsSectionState();
 }
 
 class _BankDetailsSectionState extends ConsumerState<BankDetailsSection> {
@@ -88,7 +86,7 @@ class _BankDetailsSectionState extends ConsumerState<BankDetailsSection> {
         Validators.validateIfsc(_ifsc.text) != null ||
         Validators.validateRequired(_bank.text, 'Bank') != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill valid details')));
+          const SnackBar(content: Text('Please fill valid details')));
       return;
     }
     // Encrypt the account number before storage.
@@ -104,8 +102,8 @@ class _BankDetailsSectionState extends ConsumerState<BankDetailsSection> {
     await ref.read(userProvider).updateBank(bank);
     if (mounted) {
       Navigator.pop(context);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Bank details saved')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Bank details saved')));
     }
   }
 

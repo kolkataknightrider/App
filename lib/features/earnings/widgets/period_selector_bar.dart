@@ -5,10 +5,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/providers/earnings_provider.dart';
-import '../../../../core/providers/providers.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/providers/providers.dart';
 
 class PeriodSelectorBar extends ConsumerWidget {
   const PeriodSelectorBar({super.key});
@@ -17,10 +16,10 @@ class PeriodSelectorBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.watch(earningsProvider);
     final tabs = [
-      _Tab('Today', EarningPeriod.today),
-      _Tab('This Week', EarningPeriod.week),
-      _Tab('This Month', EarningPeriod.month),
-      _Tab('Last Month', EarningPeriod.lastMonth),
+      const _Tab('Today', EarningPeriod.today),
+      const _Tab('This Week', EarningPeriod.week),
+      const _Tab('This Month', EarningPeriod.month),
+      const _Tab('Last Month', EarningPeriod.lastMonth),
     ];
     return SizedBox(
       height: 40,
@@ -38,19 +37,14 @@ class PeriodSelectorBar extends ConsumerWidget {
               decoration: BoxDecoration(
                 gradient: active ? AppColors.brandGradient : null,
                 color: active ? null : Theme.of(context).cardColor,
-                borderRadius:
-                    BorderRadius.circular(AppDimensions.radiusButton),
-                border: active
-                    ? null
-                    : Border.all(color: AppColors.darkBorder),
+                borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
+                border: active ? null : Border.all(color: AppColors.darkBorder),
               ),
               alignment: Alignment.center,
               child: Text(
                 t.label,
                 style: TextStyle(
-                  color: active
-                      ? Colors.white
-                      : AppColors.textSecondary,
+                  color: active ? Colors.white : AppColors.textSecondary,
                   fontWeight: FontWeight.w600,
                   fontSize: 13,
                 ),

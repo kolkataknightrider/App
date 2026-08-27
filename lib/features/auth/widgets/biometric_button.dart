@@ -5,11 +5,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/constants/app_strings.dart';
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_dimensions.dart';
-import '../../../core/services/biometric_service.dart';
-import '../../../core/providers/providers.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/services/biometric_service.dart';
+import 'package:partix/core/firebase/auth_service.dart';
+import 'package:partix/core/providers/providers.dart';
 
 class BiometricButton extends ConsumerStatefulWidget {
   const BiometricButton({super.key});
@@ -45,7 +46,8 @@ class _BiometricButtonState extends ConsumerState<BiometricButton> {
       setState(() => _busy = false);
       if (auth.error != null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(auth.error!), backgroundColor: Colors.redAccent),
+          SnackBar(
+              content: Text(auth.error!), backgroundColor: Colors.redAccent),
         );
         auth.clearError();
       }
@@ -73,8 +75,7 @@ class _BiometricButtonState extends ConsumerState<BiometricButton> {
           style: OutlinedButton.styleFrom(
             side: const BorderSide(color: AppColors.brandPrimary),
             shape: RoundedRectangleBorder(
-              borderRadius:
-                  BorderRadius.circular(AppDimensions.radiusButton),
+              borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
             ),
           ),
         ),

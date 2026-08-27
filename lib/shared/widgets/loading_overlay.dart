@@ -4,7 +4,7 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
-import '../../core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_colors.dart';
 
 class LoadingOverlay extends StatelessWidget {
   final bool isLoading;

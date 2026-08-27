@@ -4,10 +4,10 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/utils/currency_formatter.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/utils/currency_formatter.dart';
 
 class AmountInputWidget extends StatelessWidget {
   final TextEditingController controller;
@@ -39,8 +39,7 @@ class AmountInputWidget extends StatelessWidget {
           child: Row(
             children: [
               const Text('₹',
-                  style: TextStyle(
-                      fontSize: 22, fontWeight: FontWeight.w700)),
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700)),
               const SizedBox(width: 8),
               Expanded(
                 child: TextField(
@@ -87,8 +86,8 @@ class AmountInputWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(label,
-            style: const TextStyle(
-                color: AppColors.brandPrimary, fontSize: 12)),
+            style:
+                const TextStyle(color: AppColors.brandPrimary, fontSize: 12)),
       ),
     );
   }

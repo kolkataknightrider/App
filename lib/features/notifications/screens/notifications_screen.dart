@@ -6,15 +6,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/constants/app_routes.dart';
-import '../../../../core/firebase/auth_service.dart';
-import '../../../../core/models/notification_model.dart';
-import '../../../../core/providers/providers.dart';
-import '../../../../core/utils/date_formatter.dart';
-import '../../../../shared/widgets/empty_state_widget.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/constants/app_routes.dart';
+import 'package:partix/core/firebase/auth_service.dart';
+import 'package:partix/core/models/notification_model.dart';
+import 'package:partix/core/providers/providers.dart';
+import 'package:partix/core/utils/date_formatter.dart';
+import 'package:partix/shared/widgets/empty_state_widget.dart';
 
 class NotificationsScreen extends ConsumerStatefulWidget {
   const NotificationsScreen({super.key});

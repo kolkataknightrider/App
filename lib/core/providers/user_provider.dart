@@ -4,9 +4,9 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/foundation.dart';
-import '../firebase/firestore_service.dart';
-import '../models/user_model.dart';
-import '../models/bank_details_model.dart';
+import 'package:partix/core/firebase/firestore_service.dart';
+import 'package:partix/core/models/user_model.dart';
+import 'package:partix/core/models/bank_details_model.dart';
 
 class UserProvider extends ChangeNotifier {
   UserModel? _user;

@@ -4,11 +4,11 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/foundation.dart';
-import '../firebase/firestore_service.dart';
-import '../models/earning_model.dart';
-import '../models/user_model.dart';
-import '../services/mlm_calculator.dart';
-import '../utils/date_formatter.dart';
+import 'package:partix/core/firebase/firestore_service.dart';
+import 'package:partix/core/models/earning_model.dart';
+import 'package:partix/core/models/user_model.dart';
+import 'package:partix/core/services/mlm_calculator.dart';
+import 'package:partix/core/utils/date_formatter.dart';
 
 class DashboardProvider extends ChangeNotifier {
   List<EarningModel> _earnings = const [];
@@ -53,8 +53,7 @@ class DashboardProvider extends ChangeNotifier {
 
   /// Recent activity limited to [limit] items.
   List<EarningModel> recentActivity({int limit = 5}) {
-    final sorted = [..._earnings]
-      ..sort((a, b) => b.date.compareTo(a.date));
+    final sorted = [..._earnings]..sort((a, b) => b.date.compareTo(a.date));
     return sorted.take(limit).toList();
   }
 

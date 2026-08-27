@@ -5,8 +5,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
 
 class EarningMetricCard extends StatelessWidget {
   final String label;
@@ -49,8 +49,8 @@ class EarningMetricCard extends StatelessWidget {
             Positioned(
               right: -8,
               bottom: -8,
-              child: Icon(icon,
-                  size: 64, color: Colors.white.withOpacity(0.18)),
+              child:
+                  Icon(icon, size: 64, color: Colors.white.withOpacity(0.18)),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

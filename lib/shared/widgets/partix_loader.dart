@@ -6,7 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:lottie/lottie.dart';
-import '../../core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_colors.dart';
 
 /// Three bouncing PARTIX dots.
 class PartixDotsLoader extends StatelessWidget {
@@ -23,7 +23,7 @@ class PartixDotsLoader extends StatelessWidget {
           child: Container(
             width: size,
             height: size,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: AppColors.brandGradient,
               shape: BoxShape.circle,
             ),
@@ -37,7 +37,11 @@ class PartixDotsLoader extends StatelessWidget {
                 curve: Curves.easeInOut,
               )
               .then(delay: 200.ms)
-              .moveY(begin: -10, end: 0, duration: 600.ms, curve: Curves.easeInOut),
+              .moveY(
+                  begin: -10,
+                  end: 0,
+                  duration: 600.ms,
+                  curve: Curves.easeInOut),
         );
       }),
     );
@@ -54,7 +58,7 @@ class PartixRingLoader extends StatelessWidget {
     return SizedBox(
       width: size,
       height: size,
-      child: DecoratedBox(
+      child: const DecoratedBox(
         decoration: BoxDecoration(
           gradient: AppColors.brandGradient,
           shape: BoxShape.circle,

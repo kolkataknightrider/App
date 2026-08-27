@@ -5,12 +5,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_routes.dart';
-import '../../../../core/models/team_member_model.dart';
-import '../../../../core/utils/date_formatter.dart';
-import '../../../../shared/widgets/status_badge.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_routes.dart';
+import 'package:partix/core/models/team_member_model.dart';
+import 'package:partix/shared/widgets/status_badge.dart';
 
 class TeamMemberCard extends StatelessWidget {
   final TeamMemberModel member;
@@ -28,8 +27,7 @@ class TeamMemberCard extends StatelessWidget {
         border: Border.all(color: rankColor.withOpacity(0.4)),
       ),
       child: InkWell(
-        onTap: () =>
-            context.go(AppRoutes.memberDetailPath(member.userId)),
+        onTap: () => context.go(AppRoutes.memberDetailPath(member.userId)),
         borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
         child: Column(
           children: [
@@ -84,7 +82,7 @@ class TeamMemberCard extends StatelessWidget {
 class _Info extends StatelessWidget {
   final String label;
   final String value;
-  const _Info(this.label, this.value, {super.key});
+  const _Info(this.label, this.value);
 
   @override
   Widget build(BuildContext context) {
@@ -92,11 +90,10 @@ class _Info extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(value,
-            style:
-                const TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
+            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
         Text(label,
-            style: const TextStyle(
-                color: AppColors.textSecondary, fontSize: 10)),
+            style:
+                const TextStyle(color: AppColors.textSecondary, fontSize: 10)),
       ],
     );
   }

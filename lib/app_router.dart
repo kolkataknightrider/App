@@ -7,19 +7,19 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'core/constants/app_routes.dart';
-import 'shared/widgets/page_transition.dart';
-import 'features/splash/splash_screen.dart';
-import 'features/auth/screens/login_screen.dart';
-import 'features/dashboard/screens/dashboard_screen.dart';
-import 'features/team/screens/team_screen.dart';
-import 'features/team/screens/member_detail_screen.dart';
-import 'features/earnings/screens/earnings_detail_screen.dart';
-import 'features/withdrawal/screens/withdrawal_screen.dart';
-import 'features/withdrawal/screens/withdrawal_history_screen.dart';
-import 'features/profile/screens/profile_screen.dart';
-import 'features/notifications/screens/notifications_screen.dart';
-import 'shared/widgets/shell_with_nav.dart';
+import 'package:partix/core/constants/app_routes.dart';
+import 'package:partix/shared/widgets/page_transition.dart';
+import 'package:partix/features/splash/splash_screen.dart';
+import 'package:partix/features/auth/screens/login_screen.dart';
+import 'package:partix/features/dashboard/screens/dashboard_screen.dart';
+import 'package:partix/features/team/screens/team_screen.dart';
+import 'package:partix/features/team/screens/member_detail_screen.dart';
+import 'package:partix/features/earnings/screens/earnings_detail_screen.dart';
+import 'package:partix/features/withdrawal/screens/withdrawal_screen.dart';
+import 'package:partix/features/withdrawal/screens/withdrawal_history_screen.dart';
+import 'package:partix/features/profile/screens/profile_screen.dart';
+import 'package:partix/features/notifications/screens/notifications_screen.dart';
+import 'package:partix/shared/widgets/shell_with_nav.dart';
 
 /// Listenable that re-triggers router redirects on auth changes.
 class AuthListenable extends ChangeNotifier {

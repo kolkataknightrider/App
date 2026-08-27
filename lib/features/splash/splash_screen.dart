@@ -6,12 +6,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../core/constants/app_colors.dart';
-import '../../core/constants/app_strings.dart';
-import '../../core/constants/app_routes.dart';
-import '../../core/constants/app_dimensions.dart';
-import '../../shared/widgets/animated_logo.dart';
-import '../../shared/widgets/partix_loader.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/constants/app_routes.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/shared/widgets/animated_logo.dart';
+import 'package:partix/shared/widgets/partix_loader.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -51,12 +50,10 @@ class _SplashScreenState extends State<SplashScreen> {
                   .fadeIn(duration: 600.ms)
                   .slideY(begin: 0.3, end: 0, duration: 600.ms),
               const SizedBox(height: AppDimensions.lg),
-              Text(
+              const Text(
                 AppStrings.tagline,
-                style: const TextStyle(color: Colors.white70, fontSize: 14)
-                    .animate()
-                    .fadeIn(delay: 400.ms, duration: 600.ms),
-              ),
+                style: TextStyle(color: Colors.white70, fontSize: 14),
+              ).animate().fadeIn(delay: 400.ms, duration: 600.ms),
               const SizedBox(height: AppDimensions.xl),
               const PartixDotsLoader(size: 12),
             ],

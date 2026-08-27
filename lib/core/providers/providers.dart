@@ -5,14 +5,25 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../shared/themes/app_theme.dart';
-import 'auth_provider.dart';
-import 'user_provider.dart';
-import 'dashboard_provider.dart';
-import 'team_provider.dart';
-import 'earnings_provider.dart';
-import 'withdrawal_provider.dart';
-import 'notification_provider.dart';
+import 'package:partix/shared/themes/app_theme.dart';
+import 'package:partix/core/providers/auth_provider.dart';
+import 'package:partix/core/providers/user_provider.dart';
+import 'package:partix/core/providers/dashboard_provider.dart';
+import 'package:partix/core/providers/team_provider.dart';
+import 'package:partix/core/providers/earnings_provider.dart';
+import 'package:partix/core/providers/withdrawal_provider.dart';
+import 'package:partix/core/providers/notification_provider.dart';
+
+// Re-export the notifier classes so screens importing providers.dart can
+// reference their types directly.
+export 'package:partix/core/providers/auth_provider.dart';
+export 'package:partix/core/providers/user_provider.dart';
+export 'package:partix/core/providers/dashboard_provider.dart';
+export 'package:partix/core/providers/team_provider.dart';
+export 'package:partix/core/providers/earnings_provider.dart';
+export 'package:partix/core/providers/withdrawal_provider.dart';
+export 'package:partix/core/providers/notification_provider.dart';
+export 'package:partix/core/providers/connectivity_provider.dart';
 
 final authProvider =
     ChangeNotifierProvider<AuthProvider>((ref) => AuthProvider());

@@ -4,7 +4,7 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
-import '../../core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_colors.dart';
 import 'package:flutter/services.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -17,6 +17,7 @@ class CustomTextField extends StatefulWidget {
   final Widget? prefixIcon;
   final List<TextInputFormatter>? inputFormatters;
   final bool enabled;
+  final TextCapitalization textCapitalization;
 
   const CustomTextField({
     super.key,
@@ -29,6 +30,7 @@ class CustomTextField extends StatefulWidget {
     this.prefixIcon,
     this.inputFormatters,
     this.enabled = true,
+    this.textCapitalization = TextCapitalization.none,
   });
 
   @override
@@ -45,9 +47,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
       validator: widget.validator,
       enabled: widget.enabled,
       keyboardType: widget.keyboardType,
+      textCapitalization: widget.textCapitalization,
       inputFormatters: widget.inputFormatters,
       obscureText: widget.obscureText ? _show : false,
-      style: const TextStyle(color: AppColors.textPrimary, fontFamily: 'Poppins'),
+      style:
+          const TextStyle(color: AppColors.textPrimary, fontFamily: 'Poppins'),
       decoration: InputDecoration(
         labelText: widget.label,
         hintText: widget.hint,

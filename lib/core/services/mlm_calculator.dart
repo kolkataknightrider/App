@@ -3,8 +3,8 @@
 // Commission calculation & earnings aggregation.
 // ════════════════════════════════════════════════════════════════
 
-import '../constants/mlm_config.dart';
-import '../models/earning_model.dart';
+import 'package:partix/core/constants/mlm_config.dart';
+import 'package:partix/core/models/earning_model.dart';
 
 /// Pure functions for MLM math. No side effects, easy to unit-test.
 class MLMCalculator {
@@ -17,7 +17,9 @@ class MLMCalculator {
   /// Total a user earns if one person joins at each of levels 1..5.
   static double totalForFullNetwork() {
     double sum = 0;
-    for (int l = 1; l <= 5; l++) sum += commissionForLevel(l);
+    for (int l = 1; l <= 5; l++) {
+      sum += commissionForLevel(l);
+    }
     return sum;
   }
 
@@ -70,12 +72,14 @@ class MLMCalculator {
   }
 
   /// Builds a daily total series for a week (Mon..Sun) from earnings.
-  static List<double> weeklySeries(List<EarningModel> earnings, DateTime weekStart) {
+  static List<double> weeklySeries(
+      List<EarningModel> earnings, DateTime weekStart) {
     final series = List.filled(7, 0.0);
     for (int i = 0; i < 7; i++) {
       final day = weekStart.add(Duration(days: i));
       final next = day.add(const Duration(days: 1));
-      series[i] = totalInRange(earnings, day, next.subtract(const Duration(milliseconds: 1)));
+      series[i] = totalInRange(
+          earnings, day, next.subtract(const Duration(milliseconds: 1)));
     }
     return series;
   }

@@ -7,16 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/constants/app_routes.dart';
-import '../../../../core/firebase/auth_service.dart';
-import '../../../../core/providers/providers.dart';
-import '../../../../core/providers/withdrawal_provider.dart'
-    show WithdrawalStatusFilter;
-import '../../../../shared/widgets/empty_state_widget.dart';
-import '../widgets/withdrawal_history_card.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/constants/app_routes.dart';
+import 'package:partix/core/firebase/auth_service.dart';
+import 'package:partix/core/providers/providers.dart';
+import 'package:partix/shared/widgets/empty_state_widget.dart';
+import 'package:partix/features/withdrawal/widgets/withdrawal_history_card.dart';
 
 class WithdrawalHistoryScreen extends ConsumerStatefulWidget {
   const WithdrawalHistoryScreen({super.key});
@@ -65,20 +63,17 @@ class _WithdrawalHistoryScreenState
                     separatorBuilder: (_, __) => const SizedBox(width: 8),
                     itemBuilder: (_, i) {
                       final f = _filters[i];
-                      final active =
-                          withdrawal.filter == _filterEnum(f);
+                      final active = withdrawal.filter == _filterEnum(f);
                       return ChoiceChip(
                         label: Text(f),
                         selected: active,
                         selectedColor: AppColors.brandPrimary,
                         labelStyle: TextStyle(
-                          color: active
-                              ? Colors.white
-                              : AppColors.textSecondary,
+                          color:
+                              active ? Colors.white : AppColors.textSecondary,
                           fontSize: 12,
                         ),
-                        onSelected: (_) =>
-                            withdrawal.setFilter(_filterEnum(f)),
+                        onSelected: (_) => withdrawal.setFilter(_filterEnum(f)),
                       );
                     },
                   ),
@@ -88,8 +83,7 @@ class _WithdrawalHistoryScreenState
                 // ── Timeline ──
                 Expanded(
                   child: items.isEmpty
-                      ? const EmptyStateWidget(
-                          message: 'No withdrawal records')
+                      ? const EmptyStateWidget(message: 'No withdrawal records')
                       : ListView.builder(
                           padding: const EdgeInsets.symmetric(
                               horizontal: AppDimensions.md),
@@ -98,8 +92,7 @@ class _WithdrawalHistoryScreenState
                             final w = items[i];
                             final isFirst = i == 0;
                             final isLast = i == items.length - 1;
-                            final dotColor =
-                                _statusColor(w.status);
+                            final dotColor = _statusColor(w.status);
                             return TimelineTile(
                               alignment: TimelineAlign.start,
                               isFirst: isFirst,
@@ -109,7 +102,7 @@ class _WithdrawalHistoryScreenState
                                 color: dotColor,
                                 padding: const EdgeInsets.all(6),
                               ),
-                              beforeLineStyle: LineStyle(
+                              beforeLineStyle: const LineStyle(
                                 color: AppColors.darkBorder,
                                 thickness: 2,
                               ),
@@ -118,9 +111,11 @@ class _WithdrawalHistoryScreenState
                                     const EdgeInsets.only(bottom: 16, left: 12),
                                 child: WithdrawalHistoryCard(
                                   withdrawal: w,
-                                  onCancel: () =>
-                                      ref.read(withdrawalProvider).cancel(w.withdrawalId),
-                                  onRetry: () => context.go(AppRoutes.withdrawal),
+                                  onCancel: () => ref
+                                      .read(withdrawalProvider)
+                                      .cancel(w.withdrawalId),
+                                  onRetry: () =>
+                                      context.go(AppRoutes.withdrawal),
                                 ),
                               ),
                             );

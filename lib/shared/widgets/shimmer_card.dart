@@ -5,8 +5,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import '../../core/constants/app_colors.dart';
-import '../../core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
 
 class ShimmerCard extends StatelessWidget {
   final double height;

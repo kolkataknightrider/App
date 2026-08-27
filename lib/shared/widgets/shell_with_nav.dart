@@ -6,9 +6,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../core/providers/providers.dart';
-import '../core/firebase/auth_service.dart';
-import '../shared/widgets/partix_bottom_nav.dart';
+import 'package:partix/core/providers/providers.dart';
+import 'package:partix/core/firebase/auth_service.dart';
+import 'package:partix/shared/widgets/partix_bottom_nav.dart';
 
 class ShellWithNav extends ConsumerStatefulWidget {
   final StatefulNavigationShell shell;
@@ -21,8 +21,7 @@ class ShellWithNav extends ConsumerStatefulWidget {
 class _ShellWithNavState extends ConsumerState<ShellWithNav> {
   bool _started = false;
 
-  String? get _uid =>
-      AuthService.instance.currentUid;
+  String? get _uid => AuthService.instance.currentUid;
 
   @override
   Widget build(BuildContext context) {

@@ -5,23 +5,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/firebase/firestore_service.dart';
-import '../../../../core/models/team_member_model.dart';
-import '../../../../core/utils/date_formatter.dart';
-import '../../../../shared/widgets/status_badge.dart';
-import '../widgets/team_member_card.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/firebase/firestore_service.dart';
+import 'package:partix/core/models/team_member_model.dart';
+import 'package:partix/core/utils/date_formatter.dart';
+import 'package:partix/shared/widgets/status_badge.dart';
+import 'package:partix/features/team/widgets/team_member_card.dart';
 
 class MemberDetailScreen extends ConsumerStatefulWidget {
   final String memberId;
   const MemberDetailScreen({super.key, required this.memberId});
 
   @override
-  ConsumerState<MemberDetailScreen> createState() =>
-      _MemberDetailScreenState();
+  ConsumerState<MemberDetailScreen> createState() => _MemberDetailScreenState();
 }
 
 class _MemberDetailScreenState extends ConsumerState<MemberDetailScreen> {
@@ -37,8 +35,7 @@ class _MemberDetailScreenState extends ConsumerState<MemberDetailScreen> {
 
   Future<void> _load() async {
     try {
-      final node =
-          await FirestoreService.instance.getTeamNode(widget.memberId);
+      final node = await FirestoreService.instance.getTeamNode(widget.memberId);
       List<TeamMemberModel> their = const [];
       if (node != null && node.children.isNotEmpty) {
         their = await FirestoreService.instance.getTeamNodes(node.children);
@@ -78,8 +75,7 @@ class _MemberDetailScreenState extends ConsumerState<MemberDetailScreen> {
                           children: [
                             CircleAvatar(
                               radius: 44,
-                              backgroundColor: AppColors
-                                  .rankColor(node.rank)
+                              backgroundColor: AppColors.rankColor(node.rank)
                                   .withOpacity(0.2),
                               backgroundImage: node.profilePhotoUrl != null
                                   ? NetworkImage(node.profilePhotoUrl!)
@@ -91,8 +87,7 @@ class _MemberDetailScreenState extends ConsumerState<MemberDetailScreen> {
                             const SizedBox(height: 12),
                             Text(node.fullName,
                                 style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700)),
+                                    fontSize: 20, fontWeight: FontWeight.w700)),
                             Text(node.memberId,
                                 style: const TextStyle(
                                     color: AppColors.textSecondary)),
@@ -137,8 +132,7 @@ class _MemberDetailScreenState extends ConsumerState<MemberDetailScreen> {
                         crossAxisSpacing: 12,
                         children: [
                           _stat('Position', 'Level ${node.level}'),
-                          _stat('Direct Referrals',
-                              '${node.directReferrals}'),
+                          _stat('Direct Referrals', '${node.directReferrals}'),
                           _stat('Total Team', '${node.totalDownline}'),
                           _stat('Monthly Earnings',
                               '₹${node.monthlyEarnings.toInt()}'),
@@ -151,16 +145,13 @@ class _MemberDetailScreenState extends ConsumerState<MemberDetailScreen> {
 
                       const Text('Their Direct Members',
                           style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600)),
+                              fontSize: 16, fontWeight: FontWeight.w600)),
                       const SizedBox(height: 12),
                       if (_theirMembers.isEmpty)
                         const Text('No direct members yet.',
                             style: TextStyle(color: AppColors.textSecondary))
                       else
-                        ..._theirMembers
-                            .map((m) => TeamMemberCard(member: m))
-                            .toList(),
+                        ..._theirMembers.map((m) => TeamMemberCard(member: m)),
                       const SizedBox(height: AppDimensions.xl),
                     ],
                   ),
@@ -180,8 +171,8 @@ class _MemberDetailScreenState extends ConsumerState<MemberDetailScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(value,
-              style: const TextStyle(
-                  fontSize: 16, fontWeight: FontWeight.w700)),
+              style:
+                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
           const SizedBox(height: 2),
           Text(label,
               style: const TextStyle(

@@ -3,9 +3,9 @@
 // Rank promotion logic & progress computation.
 // ════════════════════════════════════════════════════════════════
 
-import '../constants/mlm_config.dart';
-import '../models/rank_model.dart';
-import '../models/user_model.dart';
+import 'package:partix/core/constants/mlm_config.dart';
+import 'package:partix/core/models/rank_model.dart';
+import 'package:partix/core/models/user_model.dart';
 
 /// Determines current rank + progress toward the next rank.
 class RankService {
@@ -26,7 +26,7 @@ class RankService {
       teamSize: user.totalTeamSize,
       careerEarnings: user.grossCareerEarnings,
     );
-    final nextMap = MLMConfig.getNextRank(current['level'] as int - 1);
+    final nextMap = MLMConfig.getNextRank((current['level'] as int) - 1);
     if (nextMap == null) return null;
     return RankModel.fromMap(nextMap);
   }
@@ -50,8 +50,8 @@ class RankService {
   static String nextRankRequirement(UserModel user) {
     final next = nextRank(user);
     if (next == null) return 'You have achieved the highest rank!';
-    final needMembers = (next.minTeamSize - user.totalTeamSize)
-        .clamp(0, next.minTeamSize);
+    final needMembers =
+        (next.minTeamSize - user.totalTeamSize).clamp(0, next.minTeamSize);
     final needEarn = (next.minCareerEarnings - user.grossCareerEarnings)
         .clamp(0.0, next.minCareerEarnings);
     final parts = <String>[];

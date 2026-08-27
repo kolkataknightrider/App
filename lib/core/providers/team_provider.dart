@@ -4,10 +4,11 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/foundation.dart';
-import '../firebase/firestore_service.dart';
-import '../models/team_member_model.dart';
+import 'package:partix/core/firebase/firestore_service.dart';
+import 'package:partix/core/models/team_member_model.dart';
 
 enum TeamViewMode { tree, list }
+
 enum TeamSort { earnings, joinDate, name, teamSize, rank }
 
 class TeamProvider extends ChangeNotifier {
@@ -57,8 +58,7 @@ class TeamProvider extends ChangeNotifier {
       String userId, int childLevel) async {
     final node = await _firestore.getTeamNode(userId);
     if (node == null) return const [];
-    final children =
-        await _firestore.getTeamNodes(node.children);
+    final children = await _firestore.getTeamNodes(node.children);
     return children
         .map((m) => m.copyWith(level: childLevel, children: m.children))
         .toList();
@@ -112,9 +112,8 @@ class TeamProvider extends ChangeNotifier {
         list.sort((a, b) => b.rankLevel.compareTo(a.rankLevel));
         break;
       case TeamSort.joinDate:
-        list.sort((a, b) =>
-            (b.joiningDate ?? DateTime.now())
-                .compareTo(a.joiningDate ?? DateTime.now()));
+        list.sort((a, b) => (b.joiningDate ?? DateTime.now())
+            .compareTo(a.joiningDate ?? DateTime.now()));
         break;
     }
     return list;

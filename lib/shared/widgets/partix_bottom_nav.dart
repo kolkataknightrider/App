@@ -6,9 +6,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:badges/badges.dart' as badges;
-import '../../core/constants/app_colors.dart';
-import '../../core/constants/app_routes.dart';
-import '../../core/constants/app_strings.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_routes.dart';
+import 'package:partix/core/constants/app_strings.dart';
 
 class PartixBottomNav extends StatelessWidget {
   final int currentIndex;
@@ -35,7 +35,8 @@ class PartixBottomNav extends StatelessWidget {
     const items = [
       _NavItem(Icons.home_outlined, Icons.home, AppStrings.dashboard, 0),
       _NavItem(Icons.group_outlined, Icons.group, AppStrings.myTeam, 1),
-      _NavItem(Icons.bar_chart_outlined, Icons.bar_chart, AppStrings.earnings, 2),
+      _NavItem(
+          Icons.bar_chart_outlined, Icons.bar_chart, AppStrings.earnings, 2),
       _NavItem(Icons.account_balance_wallet_outlined,
           Icons.account_balance_wallet, AppStrings.wallet, 3),
       _NavItem(Icons.person_outline, Icons.person, AppStrings.profile, 4),
@@ -61,9 +62,7 @@ class PartixBottomNav extends StatelessWidget {
               final active = currentIndex == item.index;
               Widget icon = Icon(
                 active ? item.filled : item.outlined,
-                color: active
-                    ? AppColors.brandPrimary
-                    : AppColors.textTertiary,
+                color: active ? AppColors.brandPrimary : AppColors.textTertiary,
                 size: 26,
               );
               if (item.index == 3 && walletBadge > 0) {

@@ -4,9 +4,9 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/foundation.dart';
-import '../firebase/auth_service.dart';
-import '../firebase/firestore_service.dart';
-import '../models/user_model.dart';
+import 'package:partix/core/firebase/auth_service.dart';
+import 'package:partix/core/firebase/firestore_service.dart';
+import 'package:partix/core/models/user_model.dart';
 
 enum AuthStatus { initial, loading, authenticated, unauthenticated, error }
 
@@ -67,7 +67,8 @@ class AuthProvider extends ChangeNotifier {
 
     try {
       final credential = await _auth.signIn(
-        memberId: memberId, password: password,
+        memberId: memberId,
+        password: password,
       );
       final user = await _firestore.getUser(credential.user!.uid);
       final validationError = _validateAccount(user);

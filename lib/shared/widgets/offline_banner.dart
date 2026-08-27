@@ -4,10 +4,10 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
-import '../../core/constants/app_colors.dart';
-import '../../core/constants/app_dimensions.dart';
-import '../../core/constants/app_strings.dart';
-import '../../core/utils/date_formatter.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/utils/date_formatter.dart';
 
 class OfflineBanner extends StatelessWidget {
   final DateTime? lastSyncedAt;
@@ -22,8 +22,8 @@ class OfflineBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final synced = lastSyncedAt != null
-        ? AppStrings.lastUpdated.replaceAll(
-            '{time}', DateFormatter.timeAgo(lastSyncedAt!))
+        ? AppStrings.lastUpdated
+            .replaceAll('{time}', DateFormatter.timeAgo(lastSyncedAt!))
         : '';
     return Container(
       width: double.infinity,
@@ -55,9 +55,9 @@ class OfflineBanner extends StatelessWidget {
           if (onRetry != null)
             TextButton(
               onPressed: onRetry,
-              child: Text(
+              child: const Text(
                 AppStrings.retryNow,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.warning,
                   fontSize: 12,
                   fontWeight: FontWeight.w600,

@@ -5,13 +5,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/models/user_model.dart';
-import '../../../../core/models/rank_model.dart';
-import '../../../../core/services/rank_service.dart';
-import '../../../../core/utils/currency_formatter.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/models/user_model.dart';
+import 'package:partix/core/services/rank_service.dart';
+import 'package:partix/core/utils/currency_formatter.dart';
 
 class RankProgressCard extends StatelessWidget {
   final UserModel user;
@@ -66,20 +64,18 @@ class RankProgressCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          _progressRow('Team Size', user.totalTeamSize,
-              next?.minTeamSize ?? 0, teamProgress),
+          _progressRow('Team Size', user.totalTeamSize, next?.minTeamSize ?? 0,
+              teamProgress),
           const SizedBox(height: 10),
-          _progressRow(
-              'Earnings',
-              user.grossCareerEarnings,
-              next?.minCareerEarnings ?? 0,
-              earnProgress,
+          _progressRow('Earnings', user.grossCareerEarnings,
+              next?.minCareerEarnings ?? 0, earnProgress,
               isCurrency: true),
           const SizedBox(height: 12),
           if (next != null)
             Text(
               RankService.nextRankRequirement(user),
-              style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
+              style:
+                  const TextStyle(fontSize: 12, color: AppColors.textSecondary),
             )
           else
             const Text('You have achieved the highest rank! 🎉',
@@ -104,9 +100,11 @@ class RankProgressCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(label,
-                style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                style: const TextStyle(
+                    fontSize: 12, color: AppColors.textSecondary)),
             Text('$valueStr / $targetStr',
-                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                style:
+                    const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
           ],
         ),
         const SizedBox(height: 6),

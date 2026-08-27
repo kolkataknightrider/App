@@ -6,27 +6,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/providers/providers.dart';
-import '../../../../core/models/user_model.dart';
-import '../../../../core/models/withdrawal_model.dart';
-import '../../../../core/providers/connectivity_provider.dart';
-import '../../../../shared/widgets/partix_app_bar.dart';
-import '../../../../shared/widgets/offline_banner.dart';
-import '../../../../shared/widgets/shimmer_card.dart';
-import '../../../../shared/widgets/error_state_widget.dart';
-import '../../../../core/utils/currency_formatter.dart';
-import '../../../../core/firebase/auth_service.dart';
-import '../../../../core/services/rank_service.dart';
-import '../widgets/greeting_header.dart';
-import '../widgets/earning_metric_card.dart';
-import '../widgets/earnings_chart_widget.dart';
-import '../widgets/pending_withdrawal_banner.dart';
-import '../widgets/quick_actions_row.dart';
-import '../widgets/recent_activity_list.dart';
-import '../widgets/rank_progress_card.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/providers/providers.dart';
+import 'package:partix/core/models/user_model.dart';
+import 'package:partix/core/models/withdrawal_model.dart';
+import 'package:partix/shared/widgets/partix_app_bar.dart';
+import 'package:partix/shared/widgets/offline_banner.dart';
+import 'package:partix/shared/widgets/error_state_widget.dart';
+import 'package:partix/core/utils/currency_formatter.dart';
+import 'package:partix/core/firebase/auth_service.dart';
+import 'package:partix/core/services/rank_service.dart';
+import 'package:partix/features/dashboard/widgets/greeting_header.dart';
+import 'package:partix/features/dashboard/widgets/earning_metric_card.dart';
+import 'package:partix/features/dashboard/widgets/earnings_chart_widget.dart';
+import 'package:partix/features/dashboard/widgets/pending_withdrawal_banner.dart';
+import 'package:partix/features/dashboard/widgets/quick_actions_row.dart';
+import 'package:partix/features/dashboard/widgets/recent_activity_list.dart';
+import 'package:partix/features/dashboard/widgets/rank_progress_card.dart';
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
@@ -52,8 +50,7 @@ class DashboardScreen extends ConsumerWidget {
           ? const Column(
               children: [
                 OfflineBanner(),
-                Expanded(
-                    child: Center(child: Text('Showing cached data'))),
+                Expanded(child: Center(child: Text('Showing cached data'))),
               ],
             )
           : _buildBody(context, ref, userState.user, dash, pending),

@@ -7,6 +7,7 @@ import 'package:equatable/equatable.dart';
 
 class BankDetailsModel extends Equatable {
   final String accountHolder;
+
   /// Encrypted value (see utils/encryption_helper.dart). In the DB this
   /// is ciphertext; the app decrypts locally for display of last 4.
   final String accountNumber; // encrypted

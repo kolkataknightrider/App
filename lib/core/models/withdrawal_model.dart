@@ -53,8 +53,7 @@ class WithdrawalModel extends Equatable {
               Map<String, dynamic>.from(json['paymentDetails']))
           : const PaymentDetailsModel(),
       status: json['status'] as String? ?? 'pending',
-      requestedAt:
-          _dateFromJson(json['requestedAt']) ?? DateTime.now(),
+      requestedAt: _dateFromJson(json['requestedAt']) ?? DateTime.now(),
       processedAt: _dateFromJson(json['processedAt']),
       adminNote: json['adminNote'] as String?,
       transactionId: json['transactionId'] as String?,

@@ -4,11 +4,11 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/foundation.dart';
-import '../constants/mlm_config.dart';
-import '../firebase/firestore_service.dart';
-import '../models/user_model.dart';
-import '../models/withdrawal_model.dart';
-import '../utils/date_formatter.dart';
+import 'package:partix/core/constants/mlm_config.dart';
+import 'package:partix/core/firebase/firestore_service.dart';
+import 'package:partix/core/models/user_model.dart';
+import 'package:partix/core/models/withdrawal_model.dart';
+import 'package:partix/core/utils/date_formatter.dart';
 import 'dart:math';
 
 enum WithdrawalStatusFilter { all, pending, processing, completed, rejected }
@@ -56,8 +56,8 @@ class WithdrawalProvider extends ChangeNotifier {
   /// Whether a withdrawal can be submitted right now.
   bool isEligible(UserModel user) {
     final last = user.lastWithdrawalDate ??
-        DateTime.now().subtract(
-            const Duration(days: MLMConfig.withdrawalGapDays + 1));
+        DateTime.now()
+            .subtract(const Duration(days: MLMConfig.withdrawalGapDays + 1));
     return MLMConfig.isWithdrawalEligible(
       lastWithdrawalDate: last,
       withdrawalCountThisMonth: user.withdrawalCountThisMonth,
@@ -67,11 +67,12 @@ class WithdrawalProvider extends ChangeNotifier {
   /// Days remaining until eligible again (0 if eligible now).
   int daysUntilEligible(UserModel user) {
     final last = user.lastWithdrawalDate ??
-        DateTime.now().subtract(
-            const Duration(days: MLMConfig.withdrawalGapDays + 1));
+        DateTime.now()
+            .subtract(const Duration(days: MLMConfig.withdrawalGapDays + 1));
     if (user.withdrawalCountThisMonth >= MLMConfig.maxWithdrawalsPerMonth) {
       // next month reset
-      final nextMonth = DateTime(DateTime.now().year, DateTime.now().month + 1, 1);
+      final nextMonth =
+          DateTime(DateTime.now().year, DateTime.now().month + 1, 1);
       return nextMonth.difference(DateTime.now()).inDays;
     }
     final next = MLMConfig.nextEligibleWithdrawalDate(last);
@@ -88,8 +89,7 @@ class WithdrawalProvider extends ChangeNotifier {
     if (!isEligible(user)) {
       final days = daysUntilEligible(user);
       final next = MLMConfig.nextEligibleWithdrawalDate(
-          user.lastWithdrawalDate ??
-              DateTime.now());
+          user.lastWithdrawalDate ?? DateTime.now());
       return 'Your next withdrawal is available in $days days. Eligible from: ${DateFormatter.medium(next)}.';
     }
     return 'You can withdraw now. ${user.withdrawalCountThisMonth} of 2 slots used this month.';

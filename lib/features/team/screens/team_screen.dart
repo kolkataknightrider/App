@@ -5,17 +5,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/firebase/auth_service.dart';
-import '../../../../core/providers/providers.dart';
-import '../../../../core/providers/team_provider.dart'
-    show TeamViewMode;
-import '../../../../shared/widgets/partix_app_bar.dart';
-import '../widgets/team_stats_header.dart';
-import '../widgets/team_list_view.dart';
-import '../widgets/tree_view_widget.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/firebase/auth_service.dart';
+import 'package:partix/core/providers/providers.dart';
+import 'package:partix/shared/widgets/partix_app_bar.dart';
+import 'package:partix/features/team/widgets/team_stats_header.dart';
+import 'package:partix/features/team/widgets/team_list_view.dart';
+import 'package:partix/features/team/widgets/tree_view_widget.dart';
 
 class TeamScreen extends ConsumerStatefulWidget {
   const TeamScreen({super.key});
@@ -35,30 +33,28 @@ class _TeamScreenState extends ConsumerState<TeamScreen> {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final team = ref.watch(teamProvider);
     return Scaffold(
-      appBar: PartixAppBar(
+      appBar: const PartixAppBar(
         title: AppStrings.myTeam,
         showNotifications: false,
         showAvatar: false,
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(AppDimensions.md),
-            child: const TeamStatsHeader(),
+          const Padding(
+            padding: EdgeInsets.all(AppDimensions.md),
+            child: TeamStatsHeader(),
           ),
 
           // ── View toggle ──
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: AppDimensions.md),
+            padding: const EdgeInsets.symmetric(horizontal: AppDimensions.md),
             child: Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,
-                borderRadius:
-                    BorderRadius.circular(AppDimensions.radiusButton),
+                borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
               ),
               child: Row(
                 children: [
@@ -75,8 +71,7 @@ class _TeamScreenState extends ConsumerState<TeamScreen> {
           // ── Content ──
           Expanded(
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: AppDimensions.md),
+              padding: const EdgeInsets.symmetric(horizontal: AppDimensions.md),
               child: team.viewMode == TeamViewMode.tree
                   ? const TreeViewWidget()
                   : const TeamListView(),
@@ -87,8 +82,7 @@ class _TeamScreenState extends ConsumerState<TeamScreen> {
     );
   }
 
-  Widget _toggle(
-      BuildContext ctx, WidgetRef ref, String label, bool active) {
+  Widget _toggle(BuildContext ctx, WidgetRef ref, String label, bool active) {
     return Expanded(
       child: GestureDetector(
         onTap: () => ref.read(teamProvider).setViewMode(
@@ -99,8 +93,7 @@ class _TeamScreenState extends ConsumerState<TeamScreen> {
           padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
             gradient: active ? AppColors.brandGradient : null,
-            borderRadius:
-                BorderRadius.circular(AppDimensions.radiusButton),
+            borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
           ),
           alignment: Alignment.center,
           child: Text(

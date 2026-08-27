@@ -4,11 +4,10 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/models/earning_model.dart';
-import '../../../../core/services/mlm_calculator.dart';
-import '../../../../core/utils/currency_formatter.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/services/mlm_calculator.dart';
+import 'package:partix/core/utils/currency_formatter.dart';
 
 class LevelBreakdownTable extends StatelessWidget {
   final Map<int, LevelBreakdown> breakdown;
@@ -33,8 +32,7 @@ class LevelBreakdownTable extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text('Level Breakdown',
-              style: TextStyle(
-                  fontSize: 16, fontWeight: FontWeight.w600)),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
           const SizedBox(height: 12),
           Table(
             columnWidths: const {
@@ -60,9 +58,9 @@ class LevelBreakdownTable extends StatelessWidget {
     );
   }
 
-  TableRow _headerRow() => TableRow(
-        decoration: const BoxDecoration(color: AppColors.darkBgTertiary),
-        children: const [
+  TableRow _headerRow() => const TableRow(
+        decoration: BoxDecoration(color: AppColors.darkBgTertiary),
+        children: [
           _Cell('Level', bold: true),
           _Cell('Members', bold: true),
           _Cell('Txns', bold: true),
@@ -70,8 +68,7 @@ class LevelBreakdownTable extends StatelessWidget {
         ],
       );
 
-  TableRow _dataRow(
-      String level, String members, String txns, double amount) {
+  TableRow _dataRow(String level, String members, String txns, double amount) {
     return TableRow(
       children: [
         _Cell(level),

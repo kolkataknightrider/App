@@ -8,23 +8,20 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/constants/app_assets.dart';
-import '../../../../core/firebase/auth_service.dart';
-import '../../../../core/firebase/firestore_service.dart';
-import '../../../../core/firebase/storage_service.dart';
-import '../../../../core/services/offline_sync_service.dart';
-import '../../../../core/providers/providers.dart';
-import '../../../../core/utils/encryption_helper.dart';
-import '../../../../shared/widgets/section_card.dart';
-import '../widgets/profile_header_widget.dart';
-import '../widgets/personal_info_section.dart';
-import '../widgets/upi_details_section.dart';
-import '../widgets/bank_details_section.dart';
-import '../widgets/security_section.dart';
-import '../widgets/app_settings_section.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/firebase/firestore_service.dart';
+import 'package:partix/core/firebase/storage_service.dart';
+import 'package:partix/core/services/offline_sync_service.dart';
+import 'package:partix/core/providers/providers.dart';
+import 'package:partix/shared/widgets/section_card.dart';
+import 'package:partix/features/profile/widgets/profile_header_widget.dart';
+import 'package:partix/features/profile/widgets/personal_info_section.dart';
+import 'package:partix/features/profile/widgets/upi_details_section.dart';
+import 'package:partix/features/profile/widgets/bank_details_section.dart';
+import 'package:partix/features/profile/widgets/security_section.dart';
+import 'package:partix/features/profile/widgets/app_settings_section.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -39,9 +36,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     if (user == null) return;
     final file = await StorageService.instance.pickImage();
     if (file == null) return;
-    final url = await StorageService.instance.uploadProfilePhoto(
-        user.uid, file);
-    await ref.read(userProvider).setUser(user.copyWith(profilePhotoUrl: url));
+    final url =
+        await StorageService.instance.uploadProfilePhoto(user.uid, file);
+    ref.read(userProvider).setUser(user.copyWith(profilePhotoUrl: url));
     await FirestoreService.instance.updateUser(user.uid, {
       'profilePhotoUrl': url,
     });
@@ -51,8 +48,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   Widget build(BuildContext context) {
     final user = ref.watch(userProvider).user;
     if (user == null) {
-      return const Scaffold(
-          body: Center(child: CircularProgressIndicator()));
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
     return Scaffold(
       appBar: AppBar(
@@ -77,8 +73,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           child: Container(
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .scaffoldBackgroundColor,
+                              color: Theme.of(context).scaffoldBackgroundColor,
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Text(
@@ -121,14 +116,16 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     child: Column(
                       children: [
                         _supportTile(Icons.chat, AppStrings.whatsappSupport,
-                            () => _launch('https://wa.me/')), 
+                            () => _launch('https://wa.me/')),
                         _supportTile(Icons.email, AppStrings.emailSupport,
                             () => _launch('mailto:support@partix.com')),
-                        _supportTile(Icons.description, AppStrings.terms, () {}),
-                        _supportTile(Icons.privacy_tip, AppStrings.privacy, () {}),
-                        ListTile(
+                        _supportTile(
+                            Icons.description, AppStrings.terms, () {}),
+                        _supportTile(
+                            Icons.privacy_tip, AppStrings.privacy, () {}),
+                        const ListTile(
                           contentPadding: EdgeInsets.zero,
-                          leading: const Icon(Icons.info_outline,
+                          leading: Icon(Icons.info_outline,
                               color: AppColors.brandPrimary),
                           title: Text('${AppStrings.appVersion}: '
                               '${AppStrings.appVersion}'),
@@ -162,8 +159,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     );
   }
 
-  Widget _supportTile(
-      IconData icon, String label, VoidCallback onTap) {
+  Widget _supportTile(IconData icon, String label, VoidCallback onTap) {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       leading: Icon(icon, color: AppColors.brandPrimary),
@@ -191,8 +187,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               child: const Text('Cancel')),
           ElevatedButton(
             onPressed: () => Navigator.pop(context, true),
-            style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.error),
+            style: ElevatedButton.styleFrom(backgroundColor: AppColors.error),
             child: const Text('Logout'),
           ),
         ],

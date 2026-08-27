@@ -51,8 +51,7 @@ class TeamMemberModel extends Equatable {
       level: json['level'] as int? ?? level,
       directReferrals: json['directReferrals'] as int? ?? 0,
       totalDownline: json['totalDownline'] as int? ?? 0,
-      monthlyEarnings:
-          (json['monthlyEarnings'] as num?)?.toDouble() ?? 0.0,
+      monthlyEarnings: (json['monthlyEarnings'] as num?)?.toDouble() ?? 0.0,
       joiningDate: _dateFromJson(json['joiningDate']),
       children: _stringList(json['children']),
     );

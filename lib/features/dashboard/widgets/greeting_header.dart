@@ -4,15 +4,14 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/models/user_model.dart';
-import '../../../../shared/widgets/status_badge.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/models/user_model.dart';
+import 'package:partix/shared/widgets/status_badge.dart';
 
 class GreetingHeader extends StatelessWidget {
   final UserModel user;
   final String greeting;
-  const GreetingHeader(
-      {super.key, required this.user, required this.greeting});
+  const GreetingHeader({super.key, required this.user, required this.greeting});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +34,7 @@ class GreetingHeader extends StatelessWidget {
               Text(
                 user.memberId,
                 style: const TextStyle(
-                  color: AppColorsTextSecondary,
+                  color: AppColors.textSecondary,
                   fontSize: 13,
                   fontFamily: 'Poppins',
                 ),
@@ -51,7 +50,7 @@ class GreetingHeader extends StatelessWidget {
             Text(
               'Team: ${user.totalTeamSize} members',
               style: const TextStyle(
-                color: AppColorsTextSecondary,
+                color: AppColors.textSecondary,
                 fontSize: 12,
                 fontFamily: 'Poppins',
               ),
@@ -62,5 +61,3 @@ class GreetingHeader extends StatelessWidget {
     );
   }
 }
-
-const Color AppColorsTextSecondary = Color(0xFF9B9BB5);

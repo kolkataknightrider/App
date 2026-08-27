@@ -5,9 +5,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../core/constants/app_colors.dart';
-import '../../core/constants/app_assets.dart';
-import 'partix_loader.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_assets.dart';
+import 'package:partix/shared/widgets/partix_loader.dart';
 
 class SuccessOverlay extends StatefulWidget {
   final String message;

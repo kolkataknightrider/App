@@ -3,8 +3,6 @@
 // COMPLETE MLM COMPENSATION PLAN FOR PARTIX
 // ════════════════════════════════════════════════════════════════
 
-import 'package:flutter/foundation.dart';
-
 /// PARTIX MLM business rules: joining fee, 5-level commissions,
 /// withdrawal limits, and the 6-tier rank system.
 class MLMConfig {
@@ -49,13 +47,16 @@ class MLMConfig {
   static const int slot2EndDay = 31; // End of month
 
   /// Whether a withdrawal is currently allowed.
+  /// [now] is injectable so the rule can be unit-tested deterministically;
+  /// it defaults to the current device time.
   static bool isWithdrawalEligible({
     required DateTime lastWithdrawalDate,
     required int withdrawalCountThisMonth,
+    DateTime? now,
   }) {
     if (withdrawalCountThisMonth >= maxWithdrawalsPerMonth) return false;
-    final daysSinceLast =
-        DateTime.now().difference(lastWithdrawalDate).inDays;
+    final reference = now ?? DateTime.now();
+    final daysSinceLast = reference.difference(lastWithdrawalDate).inDays;
     return daysSinceLast >= withdrawalGapDays;
   }
 
@@ -65,14 +66,23 @@ class MLMConfig {
   }
 
   /// Which slot (1 or 2) the given [day] of month falls into.
-  static int slotForDay(int day) =>
-      day >= slot2StartDay ? 2 : 1;
+  static int slotForDay(int day) => day >= slot2StartDay ? 2 : 1;
 
   /// Human-readable slot label, e.g. "Jan 2025 - Slot 1".
   static String periodLabel(DateTime date) {
     const months = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
     ];
     final slot = slotForDay(date.day);
     return '${months[date.month - 1]} ${date.year} - Slot $slot';

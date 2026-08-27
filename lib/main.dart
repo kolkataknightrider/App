@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'core/constants/firebase_config.dart';
-import 'core/utils/device_info.dart';
-import 'core/services/offline_sync_service.dart';
-import 'core/providers/providers.dart';
-import 'shared/themes/app_theme.dart';
-import 'app_router.dart';
+import 'package:partix/core/firebase/firebase_config.dart';
+import 'package:partix/core/utils/device_info.dart';
+import 'package:partix/core/services/offline_sync_service.dart';
+import 'package:partix/core/providers/providers.dart';
+import 'package:partix/shared/themes/app_theme.dart';
+import 'package:partix/app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -103,10 +103,8 @@ class ConfigErrorApp extends StatelessWidget {
                       decoration: BoxDecoration(
                         gradient: AppTheme.light.primaryColor == Colors.blue
                             ? null
-                            : const LinearGradient(colors: [
-                                Color(0xFF6C63FF),
-                                Color(0xFF06B6D4)
-                              ]),
+                            : const LinearGradient(
+                                colors: [Color(0xFF6C63FF), Color(0xFF06B6D4)]),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: const Text('PARTIX',

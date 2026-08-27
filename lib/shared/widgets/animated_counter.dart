@@ -4,7 +4,7 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
-import '../../core/utils/currency_formatter.dart';
+import 'package:partix/core/utils/currency_formatter.dart';
 
 class AnimatedCounter extends StatefulWidget {
   final double value;

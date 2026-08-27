@@ -29,10 +29,7 @@ class StorageService {
 
   /// Uploads a profile photo and returns its download URL.
   Future<String> uploadProfilePhoto(String userId, File file) async {
-    final ref = _storage
-        .ref()
-        .child('profile_photos')
-        .child('$userId.jpg');
+    final ref = _storage.ref().child('profile_photos').child('$userId.jpg');
     final task = await ref.putFile(
       file,
       SettableMetadata(contentType: 'image/jpeg'),

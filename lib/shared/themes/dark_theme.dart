@@ -4,9 +4,9 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
-import '../../core/constants/app_colors.dart';
-import '../../core/constants/app_text_styles.dart';
-import '../../core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_text_styles.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
 
 ThemeData buildDarkTheme() {
   const bg = AppColors.darkBgPrimary;
@@ -20,10 +20,8 @@ ThemeData buildDarkTheme() {
       primary: AppColors.brandPrimary,
       secondary: AppColors.brandSecondary,
       surface: AppColors.darkBgSecondary,
-      background: bg,
       error: AppColors.error,
       onPrimary: Colors.white,
-      onBackground: AppColors.textPrimary,
       onSurface: AppColors.textPrimary,
     ),
     appBarTheme: const AppBarTheme(
@@ -48,8 +46,7 @@ ThemeData buildDarkTheme() {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: AppColors.darkSurface,
-      contentPadding:
-          const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
         borderSide: BorderSide.none,
@@ -66,8 +63,8 @@ ThemeData buildDarkTheme() {
         borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
         borderSide: const BorderSide(color: AppColors.error),
       ),
-      labelStyle:
-          const TextStyle(color: AppColors.textSecondary, fontFamily: 'Poppins'),
+      labelStyle: const TextStyle(
+          color: AppColors.textSecondary, fontFamily: 'Poppins'),
       hintStyle:
           const TextStyle(color: AppColors.textTertiary, fontFamily: 'Poppins'),
     ),
@@ -101,7 +98,7 @@ ThemeData buildDarkTheme() {
       showSelectedLabels: true,
     ),
     dividerColor: AppColors.darkBorder,
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       displaySmall: AppTextStyles.display,
       headlineMedium: AppTextStyles.h1,
       titleLarge: AppTextStyles.h2,

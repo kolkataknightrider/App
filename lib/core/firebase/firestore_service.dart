@@ -4,13 +4,13 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../core/constants/firestore_collections.dart';
-import '../../core/models/user_model.dart';
-import '../../core/models/earning_model.dart';
-import '../../core/models/team_member_model.dart';
-import '../../core/models/withdrawal_model.dart';
-import '../../core/models/notification_model.dart';
-import '../../core/models/bank_details_model.dart';
+import 'package:partix/core/firebase/firestore_collections.dart';
+import 'package:partix/core/models/user_model.dart';
+import 'package:partix/core/models/earning_model.dart';
+import 'package:partix/core/models/team_member_model.dart';
+import 'package:partix/core/models/withdrawal_model.dart';
+import 'package:partix/core/models/notification_model.dart';
+import 'package:partix/core/models/bank_details_model.dart';
 
 /// Centralized Firestore access layer.
 class FirestoreService {
@@ -21,10 +21,8 @@ class FirestoreService {
 
   // ── USERS ─────────────────────────────────────────────────
   Future<UserModel> getUser(String userId) async {
-    final doc = await _db
-        .collection(FirestoreCollections.users)
-        .doc(userId)
-        .get();
+    final doc =
+        await _db.collection(FirestoreCollections.users).doc(userId).get();
     if (!doc.exists) throw Exception('User document not found.');
     return UserModel.fromJson(doc.data()!);
   }
@@ -35,17 +33,13 @@ class FirestoreService {
         .collection(FirestoreCollections.users)
         .doc(userId)
         .snapshots()
-        .map((snap) =>
-            UserModel.fromJson(snap.data() ?? {}));
+        .map((snap) => UserModel.fromJson(snap.data() ?? {}));
   }
 
   /// Updates a subset of user fields (security rules restrict which).
   Future<void> updateUser(String userId, Map<String, dynamic> data) async {
     data['lastSyncedAt'] = DateTime.now().millisecondsSinceEpoch;
-    await _db
-        .collection(FirestoreCollections.users)
-        .doc(userId)
-        .update(data);
+    await _db.collection(FirestoreCollections.users).doc(userId).update(data);
   }
 
   /// Saves (or creates) a user document.
@@ -69,9 +63,8 @@ class FirestoreService {
         .collection(FirestoreCollections.earningRecords)
         .orderBy('date', descending: true)
         .snapshots()
-        .map((snap) => snap.docs
-            .map((d) => EarningModel.fromJson(d.data()))
-            .toList());
+        .map((snap) =>
+            snap.docs.map((d) => EarningModel.fromJson(d.data())).toList());
   }
 
   /// Paginated earnings for the "view all" screen.
@@ -88,14 +81,14 @@ class FirestoreService {
         .limit(limit);
     if (lastDoc != null) query = query.startAfterDocument(lastDoc);
     final snap = await query.get();
-    return snap.docs.map((d) => EarningModel.fromJson(d.data())).toList();
+    return snap.docs
+        .map((d) => EarningModel.fromJson(d.data()! as Map<String, dynamic>))
+        .toList();
   }
 
   // ── WITHDRAWALS ───────────────────────────────────────────
   Future<void> createWithdrawal(Map<String, dynamic> data) async {
-    await _db
-        .collection(FirestoreCollections.withdrawals)
-        .add(data);
+    await _db.collection(FirestoreCollections.withdrawals).add(data);
   }
 
   Stream<List<WithdrawalModel>> streamWithdrawals(String userId) {
@@ -104,9 +97,8 @@ class FirestoreService {
         .where('userId', isEqualTo: userId)
         .orderBy('requestedAt', descending: true)
         .snapshots()
-        .map((snap) => snap.docs
-            .map((d) => WithdrawalModel.fromJson(d.data()))
-            .toList());
+        .map((snap) =>
+            snap.docs.map((d) => WithdrawalModel.fromJson(d.data())).toList());
   }
 
   Future<void> cancelWithdrawal(String withdrawalId) async {
@@ -126,17 +118,13 @@ class FirestoreService {
         .where('requestedAt',
             isGreaterThanOrEqualTo: startOfMonth.millisecondsSinceEpoch)
         .get();
-    return snap.docs
-        .map((d) => WithdrawalModel.fromJson(d.data()))
-        .toList();
+    return snap.docs.map((d) => WithdrawalModel.fromJson(d.data())).toList();
   }
 
   // ── TEAM TREE ─────────────────────────────────────────────
   Future<TeamMemberModel?> getTeamNode(String userId) async {
-    final doc = await _db
-        .collection(FirestoreCollections.teamTree)
-        .doc(userId)
-        .get();
+    final doc =
+        await _db.collection(FirestoreCollections.teamTree).doc(userId).get();
     if (!doc.exists) return null;
     return TeamMemberModel.fromJson(doc.data()!);
   }
@@ -144,10 +132,8 @@ class FirestoreService {
   /// Fetch the team nodes for a list of user ids (children expansion).
   Future<List<TeamMemberModel>> getTeamNodes(List<String> userIds) async {
     if (userIds.isEmpty) return const [];
-    final snaps = await Future.wait(userIds.map((id) => _db
-        .collection(FirestoreCollections.teamTree)
-        .doc(id)
-        .get()));
+    final snaps = await Future.wait(userIds.map(
+        (id) => _db.collection(FirestoreCollections.teamTree).doc(id).get()));
     return snaps
         .where((d) => d.exists)
         .map((d) => TeamMemberModel.fromJson(d.data()!))
@@ -167,8 +153,7 @@ class FirestoreService {
             .toList());
   }
 
-  Future<void> markNotificationRead(
-      String userId, String messageId) async {
+  Future<void> markNotificationRead(String userId, String messageId) async {
     await _db
         .collection(FirestoreCollections.notifications)
         .doc(userId)
@@ -187,16 +172,14 @@ class FirestoreService {
   }
 
   /// Updates bank details (allowed fields only).
-  Future<void> updateBankDetails(
-      String userId, BankDetailsModel bank) async {
+  Future<void> updateBankDetails(String userId, BankDetailsModel bank) async {
     await updateUser(userId, {
       'bankDetails': bank.toJson(),
     });
   }
 
   /// Updates UPI details.
-  Future<void> updateUpiDetails(
-      String userId, Map<String, dynamic> upi) async {
+  Future<void> updateUpiDetails(String userId, Map<String, dynamic> upi) async {
     await updateUser(userId, {'upiDetails': upi});
   }
 
@@ -212,8 +195,9 @@ class FirestoreService {
     if (language != null) data['language'] = language;
     if (theme != null) data['theme'] = theme;
     if (biometricEnabled != null) data['biometricEnabled'] = biometricEnabled;
-    if (notificationsEnabled != null)
+    if (notificationsEnabled != null) {
       data['notificationsEnabled'] = notificationsEnabled;
+    }
     await updateUser(userId, data);
   }
 }

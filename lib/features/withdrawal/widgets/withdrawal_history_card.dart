@@ -5,13 +5,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/models/withdrawal_model.dart';
-import '../../../../core/utils/currency_formatter.dart';
-import '../../../../core/utils/date_formatter.dart';
-import '../../../../shared/widgets/status_badge.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/models/withdrawal_model.dart';
+import 'package:partix/core/utils/currency_formatter.dart';
+import 'package:partix/core/utils/date_formatter.dart';
+import 'package:partix/shared/widgets/status_badge.dart';
 
 class WithdrawalHistoryCard extends ConsumerWidget {
   final WithdrawalModel withdrawal;
@@ -55,27 +55,25 @@ class WithdrawalHistoryCard extends ConsumerWidget {
             isUpi
                 ? 'UPI · ${w.paymentDetails.upiId ?? ''}'
                 : 'Bank · ${w.paymentDetails.bankName ?? ''}',
-            style: const TextStyle(
-                color: AppColors.textSecondary, fontSize: 12),
+            style:
+                const TextStyle(color: AppColors.textSecondary, fontSize: 12),
           ),
           Text(
             'Requested: ${DateFormatter.mediumWithTime(w.requestedAt)}',
-            style: const TextStyle(
-                color: AppColors.textTertiary, fontSize: 11),
+            style: const TextStyle(color: AppColors.textTertiary, fontSize: 11),
           ),
           if (w.status == 'completed' && w.processedAt != null)
             Text(
               'Completed: ${DateFormatter.mediumWithTime(w.processedAt!)}'
               '${w.transactionId != null ? ' · Txn: ${w.transactionId}' : ''}',
-              style: const TextStyle(
-                  color: AppColors.textTertiary, fontSize: 11),
+              style:
+                  const TextStyle(color: AppColors.textTertiary, fontSize: 11),
             ),
           if (w.status == 'rejected' && w.adminNote != null)
             Padding(
               padding: const EdgeInsets.only(top: 4),
               child: Text('Reason: ${w.adminNote}',
-                  style: const TextStyle(
-                      color: AppColors.error, fontSize: 11)),
+                  style: const TextStyle(color: AppColors.error, fontSize: 11)),
             ),
           const SizedBox(height: 8),
           Row(
@@ -86,7 +84,9 @@ class WithdrawalHistoryCard extends ConsumerWidget {
                   child: const Text(AppStrings.cancelRequest,
                       style: TextStyle(color: AppColors.error)),
                 ),
-              if (w.status == 'completed' && w.transactionId != null && onDownload != null)
+              if (w.status == 'completed' &&
+                  w.transactionId != null &&
+                  onDownload != null)
                 TextButton(
                   onPressed: onDownload,
                   child: const Text(AppStrings.downloadReceipt),

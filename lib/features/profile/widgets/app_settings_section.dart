@@ -5,12 +5,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/models/user_model.dart';
-import '../../../../core/providers/providers.dart';
-import '../../../../shared/widgets/section_card.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/models/user_model.dart';
+import 'package:partix/core/providers/providers.dart';
+import 'package:partix/shared/widgets/section_card.dart';
 
 class AppSettingsSection extends ConsumerWidget {
   final UserModel user;
@@ -64,9 +63,7 @@ class AppSettingsSection extends ConsumerWidget {
             title: const Text(AppStrings.notificationsPref),
             value: user.notificationsEnabled,
             onChanged: (v) {
-              ref
-                  .read(userProvider)
-                  .updatePreferences(notificationsEnabled: v);
+              ref.read(userProvider).updatePreferences(notificationsEnabled: v);
             },
           ),
         ],

@@ -5,11 +5,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/services/mlm_calculator.dart';
-import '../../../../core/models/earning_model.dart';
-import '../../../../core/utils/currency_formatter.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/services/mlm_calculator.dart';
+import 'package:partix/core/models/earning_model.dart';
+import 'package:partix/core/utils/currency_formatter.dart';
 
 class EarningsChartWidget extends StatefulWidget {
   final List<EarningModel> earnings;
@@ -34,9 +34,7 @@ class _EarningsChartWidgetState extends State<EarningsChartWidget> {
       for (int i = 5; i >= 0; i--) {
         final monthStart = DateTime(now.year, now.month - i, 1);
         final monthEnd = DateTime(now.year, now.month - i + 1, 1);
-        series.add(MLMCalculator.totalInRange(
-            widget.earnings,
-            monthStart,
+        series.add(MLMCalculator.totalInRange(widget.earnings, monthStart,
             monthEnd.subtract(const Duration(milliseconds: 1))));
       }
       return series;
@@ -46,9 +44,7 @@ class _EarningsChartWidgetState extends State<EarningsChartWidget> {
       for (int i = 6; i >= 0; i--) {
         final day = now.subtract(Duration(days: i));
         final next = day.add(const Duration(days: 1));
-        series.add(MLMCalculator.totalInRange(
-            widget.earnings,
-            day,
+        series.add(MLMCalculator.totalInRange(widget.earnings, day,
             next.subtract(const Duration(milliseconds: 1))));
       }
       return series;
@@ -104,7 +100,8 @@ class _EarningsChartWidgetState extends State<EarningsChartWidget> {
                           e.value,
                           style: TextStyle(
                             fontSize: 11,
-                            color: active ? Colors.white : AppColors.textSecondary,
+                            color:
+                                active ? Colors.white : AppColors.textSecondary,
                             fontWeight: FontWeight.w600,
                           ),
                         ),

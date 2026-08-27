@@ -4,7 +4,7 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:equatable/equatable.dart';
-import 'bank_details_model.dart';
+import 'package:partix/core/models/bank_details_model.dart';
 
 class UserModel extends Equatable {
   // Personal Info
@@ -128,8 +128,7 @@ class UserModel extends Equatable {
       phone: json['phone'] as String? ?? '',
       email: json['email'] as String? ?? '',
       profilePhotoUrl: json['profilePhotoUrl'] as String?,
-      dateOfBirth:
-          _dateFromJson(json['dateOfBirth']),
+      dateOfBirth: _dateFromJson(json['dateOfBirth']),
       address: json['address'] as String?,
       joiningDate: _dateFromJson(json['joiningDate']),
       joiningFee: (json['joiningFee'] as num?)?.toDouble() ?? 199.0,
@@ -151,15 +150,12 @@ class UserModel extends Equatable {
       todayEarnings: (json['todayEarnings'] as num?)?.toDouble() ?? 0.0,
       weeklyEarnings: (json['weeklyEarnings'] as num?)?.toDouble() ?? 0.0,
       monthlyEarnings: (json['monthlyEarnings'] as num?)?.toDouble() ?? 0.0,
-      lastMonthEarnings:
-          (json['lastMonthEarnings'] as num?)?.toDouble() ?? 0.0,
+      lastMonthEarnings: (json['lastMonthEarnings'] as num?)?.toDouble() ?? 0.0,
       yearlyEarnings: (json['yearlyEarnings'] as num?)?.toDouble() ?? 0.0,
       grossCareerEarnings:
           (json['grossCareerEarnings'] as num?)?.toDouble() ?? 0.0,
-      totalTeamEarnings:
-          (json['totalTeamEarnings'] as num?)?.toDouble() ?? 0.0,
-      availableBalance:
-          (json['availableBalance'] as num?)?.toDouble() ?? 0.0,
+      totalTeamEarnings: (json['totalTeamEarnings'] as num?)?.toDouble() ?? 0.0,
+      availableBalance: (json['availableBalance'] as num?)?.toDouble() ?? 0.0,
       bankDetails: json['bankDetails'] != null
           ? BankDetailsModel.fromJson(
               Map<String, dynamic>.from(json['bankDetails']))
@@ -169,8 +165,7 @@ class UserModel extends Equatable {
               Map<String, dynamic>.from(json['upiDetails']))
           : null,
       lastWithdrawalDate: _dateFromJson(json['lastWithdrawalDate']),
-      withdrawalCountThisMonth:
-          json['withdrawalCountThisMonth'] as int? ?? 0,
+      withdrawalCountThisMonth: json['withdrawalCountThisMonth'] as int? ?? 0,
       nextWithdrawalEligibleDate:
           _dateFromJson(json['nextWithdrawalEligibleDate']),
       language: json['language'] as String? ?? 'en',
@@ -224,8 +219,7 @@ class UserModel extends Equatable {
       'upiDetails': upiDetails?.toJson(),
       'lastWithdrawalDate': _dateToJson(lastWithdrawalDate),
       'withdrawalCountThisMonth': withdrawalCountThisMonth,
-      'nextWithdrawalEligibleDate':
-          _dateToJson(nextWithdrawalEligibleDate),
+      'nextWithdrawalEligibleDate': _dateToJson(nextWithdrawalEligibleDate),
       'language': language,
       'theme': theme,
       'biometricEnabled': biometricEnabled,
@@ -299,8 +293,7 @@ class UserModel extends Equatable {
       language: language ?? this.language,
       theme: theme ?? this.theme,
       biometricEnabled: biometricEnabled ?? this.biometricEnabled,
-      notificationsEnabled:
-          notificationsEnabled ?? this.notificationsEnabled,
+      notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
       fcmToken: fcmToken,
       createdAt: createdAt,
       lastLogin: lastLogin,

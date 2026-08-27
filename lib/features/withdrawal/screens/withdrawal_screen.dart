@@ -4,20 +4,20 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
+import 'package:partix/core/utils/currency_formatter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/firebase/auth_service.dart';
-import '../../../../core/constants/mlm_config.dart';
-import '../../../../core/models/user_model.dart';
-import '../../../../core/providers/providers.dart';
-import '../../../../core/utils/validators.dart';
-import '../../../../shared/widgets/custom_button.dart';
-import '../../../../shared/widgets/error_state_widget.dart';
-import '../widgets/balance_header_card.dart';
-import '../widgets/amount_input_widget.dart';
-import '../widgets/payment_method_selector.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/constants/mlm_config.dart';
+import 'package:partix/core/models/user_model.dart';
+import 'package:partix/core/providers/providers.dart';
+import 'package:partix/core/utils/validators.dart';
+import 'package:partix/shared/widgets/custom_button.dart';
+import 'package:partix/shared/widgets/error_state_widget.dart';
+import 'package:partix/features/withdrawal/widgets/balance_header_card.dart';
+import 'package:partix/features/withdrawal/widgets/amount_input_widget.dart';
+import 'package:partix/features/withdrawal/widgets/payment_method_selector.dart';
 
 class WithdrawalScreen extends ConsumerStatefulWidget {
   const WithdrawalScreen({super.key});
@@ -44,8 +44,7 @@ class _WithdrawalScreenState extends ConsumerState<WithdrawalScreen> {
     final withdrawal = ref.watch(withdrawalProvider);
 
     if (user == null) {
-      return const Scaffold(
-          body: Center(child: CircularProgressIndicator()));
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
     if (!_initialized) {
       _initialized = true;
@@ -95,8 +94,7 @@ class _WithdrawalScreenState extends ConsumerState<WithdrawalScreen> {
               padding: const EdgeInsets.all(AppDimensions.md),
               decoration: BoxDecoration(
                 color: AppColors.info.withOpacity(0.1),
-                borderRadius:
-                    BorderRadius.circular(AppDimensions.radiusCard),
+                borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
               ),
               child: const Row(
                 children: [
@@ -143,8 +141,9 @@ class _WithdrawalScreenState extends ConsumerState<WithdrawalScreen> {
             CustomButton(
               label: label,
               isLoading: withdrawal.submitting,
-              enabled: eligible && amount > 0 && amount <= user.availableBalance,
-              onPressed: () => _confirm(context, user, withdrawal),
+              enabled:
+                  eligible && amount > 0 && amount <= user.availableBalance,
+              onPressed: () => _confirm(user, withdrawal),
             ),
             const SizedBox(height: AppDimensions.xl),
           ],
@@ -153,8 +152,10 @@ class _WithdrawalScreenState extends ConsumerState<WithdrawalScreen> {
     );
   }
 
-  Future<void> _confirm(BuildContext context, UserModel user,
-      WithdrawalProvider withdrawal) async {
+  /// Validates, confirms and submits the withdrawal request.
+  /// Uses the State's own [context]/[mounted] pair so post-await guards
+  /// are analyser-safe.
+  Future<void> _confirm(UserModel user, WithdrawalProvider withdrawal) async {
     final amount = double.tryParse(_amountCtrl.text) ?? 0;
     final err = Validators.validateAmount(_amountCtrl.text,
         maxAllowed: user.availableBalance);
@@ -173,7 +174,7 @@ class _WithdrawalScreenState extends ConsumerState<WithdrawalScreen> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Amount: ${CurrencyFormatterFmt(amount)}'),
+            Text('Amount: ${CurrencyFormatter.format(amount)}'),
             Text('Method: ${_method == 'upi' ? 'UPI' : 'Bank'} — '
                 '${_details.values.join(', ')}'),
             const SizedBox(height: 8),
@@ -216,14 +217,9 @@ class _WithdrawalScreenState extends ConsumerState<WithdrawalScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text(e.toString()),
-              backgroundColor: Colors.redAccent),
+              content: Text(e.toString()), backgroundColor: Colors.redAccent),
         );
       }
     }
   }
 }
-
-// Local helper to avoid another import line.
-String CurrencyFormatterFmt(double v) =>
-    '₹ ${v.toStringAsFixed(2)}';

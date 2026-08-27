@@ -4,8 +4,8 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
-import '../../core/constants/app_colors.dart';
-import '../../core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
 
 class StatusBadge extends StatelessWidget {
   final String label;
@@ -49,8 +49,7 @@ class StatusBadge extends StatelessWidget {
       decoration: BoxDecoration(
         color: filled ? color.withOpacity(0.15) : Colors.transparent,
         border: filled ? null : Border.all(color: color),
-        borderRadius:
-            BorderRadius.circular(AppDimensions.radiusChip),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusChip),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

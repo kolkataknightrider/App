@@ -5,9 +5,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/utils/currency_formatter.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/utils/currency_formatter.dart';
 
 class EarningsTypeCard extends StatelessWidget {
   final String label;
@@ -45,13 +45,12 @@ class EarningsTypeCard extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             CurrencyFormatter.format(amount),
-            style: const TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w700),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 4),
           Text('From $count joinings',
-              style: const TextStyle(
-                  fontSize: 10, color: AppColors.textTertiary)),
+              style:
+                  const TextStyle(fontSize: 10, color: AppColors.textTertiary)),
           const SizedBox(height: 8),
           LinearPercentIndicator(
             percent: (percent / 100).clamp(0.0, 1.0),

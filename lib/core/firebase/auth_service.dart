@@ -6,7 +6,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../core/constants/app_strings.dart';
+import 'package:partix/core/constants/app_strings.dart';
 
 /// Handles Firebase Auth + secure credential storage for biometrics.
 class AuthService {
@@ -108,7 +108,7 @@ class AuthService {
   Future<void> signOut() async {
     await _auth.signOut();
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(AppStrings.lastLogin);
+    await prefs.remove('last_login');
   }
 
   /// Records a failed login and triggers a 15-min lockout at 5 attempts.
@@ -117,8 +117,9 @@ class AuthService {
     final attempts = (prefs.getInt(_failAttemptsKey) ?? 0) + 1;
     await prefs.setInt(_failAttemptsKey, attempts);
     if (attempts >= 5) {
-      final until =
-          DateTime.now().add(const Duration(minutes: 15)).millisecondsSinceEpoch;
+      final until = DateTime.now()
+          .add(const Duration(minutes: 15))
+          .millisecondsSinceEpoch;
       await prefs.setInt(_lockoutUntilKey, until);
     }
   }

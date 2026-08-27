@@ -4,7 +4,7 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:local_auth/local_auth.dart';
-import 'package:local_auth/error_codes.dart' as auth_error;
+import 'package:flutter/services.dart';
 
 class BiometricService {
   BiometricService._();
@@ -14,8 +14,8 @@ class BiometricService {
   /// Whether the device has usable biometrics enrolled.
   static Future<bool> isAvailable() async {
     try {
-      final canAuthenticate = await _auth.canCheckBiometrics ||
-          await _auth.isDeviceSupported();
+      final canAuthenticate =
+          await _auth.canCheckBiometrics || await _auth.isDeviceSupported();
       final enrolled = await _auth.getAvailableBiometrics();
       return canAuthenticate && enrolled.isNotEmpty;
     } catch (_) {
@@ -24,7 +24,8 @@ class BiometricService {
   }
 
   /// Prompts the OS biometric prompt. Returns true on success.
-  static Future<bool> authenticate({String reason = 'Authenticate to continue'}) async {
+  static Future<bool> authenticate(
+      {String reason = 'Authenticate to continue'}) async {
     try {
       return await _auth.authenticate(
         localizedReason: reason,
@@ -33,9 +34,9 @@ class BiometricService {
           stickyAuth: true,
         ),
       );
-    } on PlatformNotSupportedException {
-      return false;
-    } on NotAvailableException {
+    } on PlatformException {
+      // Device has no biometric hardware, none enrolled, or the OS
+      // refused the prompt — fall back to password login.
       return false;
     } catch (_) {
       return false;

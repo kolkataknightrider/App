@@ -4,11 +4,11 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/models/earning_model.dart';
-import '../../../../core/utils/currency_formatter.dart';
-import '../../../../core/utils/date_formatter.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/models/earning_model.dart';
+import 'package:partix/core/utils/currency_formatter.dart';
+import 'package:partix/core/utils/date_formatter.dart';
 
 class EarningsTransactionItem extends StatelessWidget {
   final EarningModel earning;

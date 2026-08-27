@@ -5,10 +5,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/providers/providers.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/providers/providers.dart';
 
 class TeamStatsHeader extends ConsumerWidget {
   const TeamStatsHeader({super.key});
@@ -24,8 +24,8 @@ class TeamStatsHeader extends ConsumerWidget {
           Icons.verified_user, AppColors.success),
       _Stat(AppStrings.directReferrals, '${stats['direct'] ?? 0}',
           Icons.person_add, AppColors.info),
-      _Stat(AppStrings.newThisMonth, '+${stats['new'] ?? 0}', Icons.new_releases,
-          AppColors.warning),
+      _Stat(AppStrings.newThisMonth, '+${stats['new'] ?? 0}',
+          Icons.new_releases, AppColors.warning),
     ];
     return GridView.count(
       shrinkWrap: true,
@@ -39,8 +39,7 @@ class TeamStatsHeader extends ConsumerWidget {
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: Theme.of(context).cardColor,
-                  borderRadius:
-                      BorderRadius.circular(AppDimensions.radiusCard),
+                  borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

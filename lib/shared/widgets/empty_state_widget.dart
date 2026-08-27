@@ -4,8 +4,8 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
-import '../../core/constants/app_colors.dart';
-import '../../core/constants/app_strings.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_strings.dart';
 
 class EmptyStateWidget extends StatelessWidget {
   final String message;

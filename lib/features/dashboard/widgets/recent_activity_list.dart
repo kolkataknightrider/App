@@ -5,13 +5,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/constants/app_routes.dart';
-import '../../../../core/models/earning_model.dart';
-import '../../../../core/utils/currency_formatter.dart';
-import '../../../../core/utils/date_formatter.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/constants/app_routes.dart';
+import 'package:partix/core/models/earning_model.dart';
+import 'package:partix/core/utils/currency_formatter.dart';
+import 'package:partix/core/utils/date_formatter.dart';
 
 class RecentActivityList extends StatelessWidget {
   final List<EarningModel> items;
@@ -50,7 +50,7 @@ class RecentActivityList extends StatelessWidget {
                       style: TextStyle(color: AppColors.textSecondary))),
             )
           else
-            ...items.map((e) => _activityTile(e)).toList(),
+            ...items.map((e) => _activityTile(e)),
         ],
       ),
     );
@@ -71,12 +71,12 @@ class RecentActivityList extends StatelessWidget {
                 color: AppColors.success, size: 20),
           ),
           title: Text(e.typeLabel,
-              style: const TextStyle(
-                  fontWeight: FontWeight.w600, fontSize: 14)),
+              style:
+                  const TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
           subtitle: Text(
             '${e.fromUserName} joined (L${e.level})',
-            style: const TextStyle(
-                color: AppColors.textSecondary, fontSize: 12),
+            style:
+                const TextStyle(color: AppColors.textSecondary, fontSize: 12),
           ),
           trailing: Column(
             mainAxisAlignment: MainAxisAlignment.center,

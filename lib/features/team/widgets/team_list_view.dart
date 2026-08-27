@@ -5,13 +5,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_strings.dart';
-import '../../../../core/providers/providers.dart';
-import '../../../../core/providers/team_provider.dart'
-    as tp;
-import 'team_member_card.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/providers/providers.dart';
+import 'package:partix/core/providers/team_provider.dart' as tp;
+import 'package:partix/features/team/widgets/team_member_card.dart';
 
 class TeamListView extends ConsumerWidget {
   const TeamListView({super.key});
@@ -35,8 +34,7 @@ class TeamListView extends ConsumerWidget {
             filled: true,
             fillColor: Theme.of(context).cardColor,
             border: OutlineInputBorder(
-              borderRadius:
-                  BorderRadius.circular(AppDimensions.radiusInput),
+              borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
               borderSide: BorderSide.none,
             ),
           ),
@@ -80,10 +78,8 @@ class TeamListView extends ConsumerWidget {
                 DropdownMenuItem(
                     value: tp.TeamSort.name, child: Text('Name (A-Z)')),
                 DropdownMenuItem(
-                    value: tp.TeamSort.teamSize,
-                    child: Text('Team Size')),
-                DropdownMenuItem(
-                    value: tp.TeamSort.rank, child: Text('Rank')),
+                    value: tp.TeamSort.teamSize, child: Text('Team Size')),
+                DropdownMenuItem(value: tp.TeamSort.rank, child: Text('Rank')),
               ],
               onChanged: (v) => team.setSort(v!),
             ),
@@ -102,9 +98,7 @@ class TeamListView extends ConsumerWidget {
                     style: TextStyle(color: AppColors.textSecondary))),
           )
         else
-          ...team.filteredMembers
-              .map((m) => TeamMemberCard(member: m))
-              .toList(),
+          ...team.filteredMembers.map((m) => TeamMemberCard(member: m)),
       ],
     );
   }
@@ -121,8 +115,7 @@ class TeamListView extends ConsumerWidget {
           color: active ? Colors.white : AppColors.textSecondary,
           fontSize: 12,
         ),
-        onSelected: (_) =>
-            ref.read(teamProvider).setLevelFilter(level),
+        onSelected: (_) => ref.read(teamProvider).setLevelFilter(level),
       ),
     );
   }

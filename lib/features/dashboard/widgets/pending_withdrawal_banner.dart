@@ -5,12 +5,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/constants/app_routes.dart';
-import '../../../../core/models/withdrawal_model.dart';
-import '../../../../core/utils/currency_formatter.dart';
-import '../../../../core/utils/date_formatter.dart';
+import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/app_routes.dart';
+import 'package:partix/core/models/withdrawal_model.dart';
+import 'package:partix/core/utils/currency_formatter.dart';
+import 'package:partix/core/utils/date_formatter.dart';
 
 class PendingWithdrawalBanner extends StatelessWidget {
   final WithdrawalModel withdrawal;
@@ -27,8 +27,7 @@ class PendingWithdrawalBanner extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Icon(Icons.hourglass_top_rounded,
-              color: AppColors.warning),
+          const Icon(Icons.hourglass_top_rounded, color: AppColors.warning),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -48,8 +47,7 @@ class PendingWithdrawalBanner extends StatelessWidget {
             ),
           ),
           TextButton(
-            onPressed: () =>
-                context.go(AppRoutes.withdrawalHistory),
+            onPressed: () => context.go(AppRoutes.withdrawalHistory),
             child: const Text('Check Status →'),
           ),
         ],

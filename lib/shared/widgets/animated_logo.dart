@@ -5,7 +5,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_colors.dart';
 
 class AnimatedLogo extends StatelessWidget {
   final double size;
@@ -72,7 +72,8 @@ class PulseOrb extends StatelessWidget {
       ),
     )
         .animate(onPlay: (c) => c.repeat(reverse: true))
-        .scaleXY(begin: 0.85, end: 1.15, duration: 1600.ms, curve: Curves.easeInOut)
+        .scaleXY(
+            begin: 0.85, end: 1.15, duration: 1600.ms, curve: Curves.easeInOut)
         .fadeIn(duration: 600.ms);
   }
 }

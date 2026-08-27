@@ -4,7 +4,7 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import '../../core/services/offline_sync_service.dart';
+import 'package:partix/core/services/offline_sync_service.dart';
 
 /// FCM lifecycle: permission, token, foreground/background handling.
 class FCMService {
@@ -41,8 +41,7 @@ class FCMService {
 
   /// Saves the token locally (so the repo can push it to Firestore).
   Future<void> persistToken(String token) async {
-    await OfflineSyncService.instance
-        .saveSession({'fcmToken': token});
+    await OfflineSyncService.instance.saveSession({'fcmToken': token});
   }
 }
 

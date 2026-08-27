@@ -13,10 +13,14 @@ build/
 ios/Runner/GoogleService-Info.plist
 
 # Local assets to be supplied by the developer
-assets/fonts/*.ttf
 assets/images/*.png
 assets/icons/*.svg
 assets/animations/*.json
 
 # Secrets
 *.env
+
+# Android local / generated
+android/local.properties
+android/.gradle/
+android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
