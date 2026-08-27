@@ -1,11 +1,13 @@
 // ════════════════════════════════════════════════════════════════
 // FILE: lib/shared/widgets/partix_bottom_nav.dart
-// 5-tab bottom navigation (Home, Team, Earnings, Wallet, Profile).
+// Floating frosted-glass tab bar with a sliding gradient pill,
+// icon bounce, haptics and live badges.
 // ════════════════════════════════════════════════════════════════
 
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:partix/core/constants/app_colors.dart';
 import 'package:partix/core/constants/app_routes.dart';
 import 'package:partix/core/constants/app_strings.dart';
@@ -30,86 +32,182 @@ class PartixBottomNav extends StatelessWidget {
     AppRoutes.profile,
   ];
 
+  static const _items = [
+    _NavItem(Icons.space_dashboard_outlined, Icons.space_dashboard_rounded,
+        AppStrings.dashboard, 0),
+    _NavItem(
+        Icons.groups_2_outlined, Icons.groups_2_rounded, AppStrings.myTeam, 1),
+    _NavItem(Icons.insights_outlined, Icons.insights_rounded,
+        AppStrings.earnings, 2),
+    _NavItem(Icons.account_balance_wallet_outlined,
+        Icons.account_balance_wallet_rounded, AppStrings.wallet, 3),
+    _NavItem(Icons.person_outline_rounded, Icons.person_rounded,
+        AppStrings.profile, 4),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    const items = [
-      _NavItem(Icons.home_outlined, Icons.home, AppStrings.dashboard, 0),
-      _NavItem(Icons.group_outlined, Icons.group, AppStrings.myTeam, 1),
-      _NavItem(
-          Icons.bar_chart_outlined, Icons.bar_chart, AppStrings.earnings, 2),
-      _NavItem(Icons.account_balance_wallet_outlined,
-          Icons.account_balance_wallet, AppStrings.wallet, 3),
-      _NavItem(Icons.person_outline, Icons.person, AppStrings.profile, 4),
-    ];
+    final bottomInset = MediaQuery.of(context).padding.bottom;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.25),
-            blurRadius: 12,
-            offset: const Offset(0, -2),
-          ),
-        ],
-      ),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: items.map((item) {
-              final active = currentIndex == item.index;
-              Widget icon = Icon(
-                active ? item.filled : item.outlined,
-                color: active ? AppColors.brandPrimary : AppColors.textTertiary,
-                size: 26,
-              );
-              if (item.index == 3 && walletBadge > 0) {
-                icon = badges.Badge(
-                  badgeContent: Text('$walletBadge',
-                      style: const TextStyle(color: Colors.white, fontSize: 9)),
-                  child: icon,
-                );
-              }
-              if (item.index == 0 && homeBadge > 0) {
-                icon = badges.Badge(
-                  badgeContent: Text('$homeBadge',
-                      style: const TextStyle(color: Colors.white, fontSize: 9)),
-                  child: icon,
-                );
-              }
-              return GestureDetector(
-                onTap: () => context.go(_routes[item.index]),
-                behavior: HitTestBehavior.opaque,
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: active
-                        ? AppColors.brandPrimary.withOpacity(0.12)
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      icon,
-                      if (active) ...[
-                        const SizedBox(height: 4),
-                        Text(item.label,
-                            style: const TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.brandPrimary,
-                            )),
-                      ],
-                    ],
-                  ),
+    return Padding(
+      padding: EdgeInsets.fromLTRB(14, 0, 14, bottomInset > 0 ? 10 : 14),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(28),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 22, sigmaY: 22),
+          child: Container(
+            height: 68,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(28),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.white.withOpacity(0.10),
+                  Colors.white.withOpacity(0.04),
+                ],
+              ),
+              border: Border.all(color: Colors.white.withOpacity(0.13)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.45),
+                  blurRadius: 26,
+                  offset: const Offset(0, 12),
                 ),
-              );
-            }).toList(),
+              ],
+            ),
+            child: LayoutBuilder(
+              builder: (context, c) {
+                final slot = c.maxWidth / _items.length;
+                return Stack(
+                  children: [
+                    // ── Sliding gradient pill ──
+                    AnimatedPositioned(
+                      duration: const Duration(milliseconds: 380),
+                      curve: Curves.easeOutBack,
+                      left: slot * currentIndex + (slot - 58) / 2,
+                      top: 7,
+                      child: Container(
+                        width: 58,
+                        height: 54,
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              AppColors.brandPrimary,
+                              AppColors.brandAccent,
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.brandPrimary.withOpacity(0.55),
+                              blurRadius: 18,
+                              offset: const Offset(0, 6),
+                              spreadRadius: -4,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    // ── Tabs ──
+                    Row(
+                      children: _items.map((item) {
+                        final active = currentIndex == item.index;
+                        final badge = item.index == 3
+                            ? walletBadge
+                            : (item.index == 0 ? homeBadge : 0);
+                        return Expanded(
+                          child: GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: () {
+                              if (active) return;
+                              HapticFeedback.selectionClick();
+                              context.go(_routes[item.index]);
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Stack(
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    AnimatedScale(
+                                      scale: active ? 1.12 : 1,
+                                      duration:
+                                          const Duration(milliseconds: 320),
+                                      curve: Curves.easeOutBack,
+                                      child: AnimatedSwitcher(
+                                        duration:
+                                            const Duration(milliseconds: 220),
+                                        child: Icon(
+                                          active ? item.filled : item.outlined,
+                                          key: ValueKey(active),
+                                          size: 23,
+                                          color: active
+                                              ? Colors.white
+                                              : AppColors.textSecondary
+                                                  .withOpacity(0.75),
+                                        ),
+                                      ),
+                                    ),
+                                    if (badge > 0)
+                                      Positioned(
+                                        right: -7,
+                                        top: -4,
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 5, vertical: 2),
+                                          decoration: BoxDecoration(
+                                            color: AppColors.error,
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                            border: Border.all(
+                                                color: const Color(0xFF14142A),
+                                                width: 1.4),
+                                          ),
+                                          child: Text(
+                                            badge > 9 ? '9+' : '$badge',
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 8.5,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                                AnimatedSize(
+                                  duration: const Duration(milliseconds: 280),
+                                  curve: Curves.easeOut,
+                                  child: active
+                                      ? Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 3),
+                                          child: Text(
+                                            item.label,
+                                            style: const TextStyle(
+                                              fontSize: 9.5,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.white,
+                                              letterSpacing: 0.2,
+                                            ),
+                                          ),
+                                        )
+                                      : const SizedBox(width: 1),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),

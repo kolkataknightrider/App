@@ -3,6 +3,8 @@
 // SECTION 11 — complete profile screen.
 // ════════════════════════════════════════════════════════════════
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -116,13 +118,19 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     child: Column(
                       children: [
                         _supportTile(Icons.chat, AppStrings.whatsappSupport,
-                            () => _launch('https://wa.me/')),
+                            () => _launch(AppStrings.supportWhatsAppUrl)),
                         _supportTile(Icons.email, AppStrings.emailSupport,
                             () => _launch('mailto:support@partix.com')),
                         _supportTile(
-                            Icons.description, AppStrings.terms, () {}),
+                            Icons.description,
+                            AppStrings.terms,
+                            () => _showDoc(
+                                AppStrings.terms, AppStrings.termsText)),
                         _supportTile(
-                            Icons.privacy_tip, AppStrings.privacy, () {}),
+                            Icons.privacy_tip,
+                            AppStrings.privacy,
+                            () => _showDoc(
+                                AppStrings.privacy, AppStrings.privacyText)),
                         const ListTile(
                           contentPadding: EdgeInsets.zero,
                           leading: Icon(Icons.info_outline,
@@ -166,6 +174,84 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       title: Text(label),
       trailing: const Icon(Icons.chevron_right),
       onTap: onTap,
+    );
+  }
+
+  /// Full-height scrollable legal document sheet.
+  void _showDoc(String title, String body) {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => DraggableScrollableSheet(
+        initialChildSize: 0.85,
+        minChildSize: 0.5,
+        maxChildSize: 0.95,
+        expand: false,
+        builder: (context, controller) => ClipRRect(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(26)),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 22, sigmaY: 22),
+            child: Container(
+              decoration: BoxDecoration(
+                color: AppColors.darkBgSecondary.withOpacity(0.92),
+                border: Border(
+                  top: BorderSide(color: Colors.white.withOpacity(0.14)),
+                ),
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(height: 10),
+                  Container(
+                    width: 42,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.22),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            title,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.close_rounded),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView(
+                      controller: controller,
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
+                      children: [
+                        Text(
+                          body,
+                          style: const TextStyle(
+                            fontSize: 13,
+                            height: 1.6,
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 

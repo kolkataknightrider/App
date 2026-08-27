@@ -15,9 +15,9 @@ class AppDimensions {
   static const double xxl = 48.0;
 
   // ── RADIUS ────────────────────────────────────────────────
-  static const double radiusButton = 12.0;
-  static const double radiusCard = 18.0;
-  static const double radiusInput = 12.0;
+  static const double radiusButton = 16.0;
+  static const double radiusCard = 22.0;
+  static const double radiusInput = 16.0;
   static const double radiusChip = 100.0; // fully rounded
   static const double radiusBottomSheet = 24.0;
 

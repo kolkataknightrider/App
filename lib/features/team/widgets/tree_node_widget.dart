@@ -4,8 +4,11 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/core/constants/app_routes.dart';
 import 'package:partix/core/models/team_member_model.dart';
 import 'package:partix/core/providers/providers.dart';
 import 'package:partix/shared/widgets/status_badge.dart';
@@ -63,6 +66,10 @@ class _TreeNodeWidgetState extends ConsumerState<TreeNodeWidget> {
       children: [
         InkWell(
           onTap: _toggle,
+          onLongPress: () {
+            HapticFeedback.mediumImpact();
+            context.push(AppRoutes.memberDetailPath(widget.node.userId));
+          },
           borderRadius: BorderRadius.circular(14),
           child: Container(
             width: 200,

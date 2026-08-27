@@ -157,4 +157,48 @@ class AppStrings {
   static const String notifWithdrawal = 'withdrawal';
   static const String notifRankUp = 'rank_up';
   static const String notifNewMember = 'new_member';
+
+  // ── SUPPORT / LEGAL (added in the UI overhaul) ───────────
+  static const String withdraw = 'Withdraw';
+  static const String supportWhatsAppNumber = '+919876543210';
+  static const String supportWhatsAppUrl = 'https://wa.me/919876543210';
+  static const String supportEmailAddress = 'support@partix.com';
+
+  static const String termsText = '''
+1. Membership
+Partix membership is issued by the Partix admin only. A one-time joining fee of Rs. 199 applies. Credentials are personal and must not be shared.
+
+2. Earnings
+Commissions are paid on the joining fee of members inside your 5-level network at the published rates (L1 20%, L2 10%, L3 7%, L4 5%, L5 3%). Rank bonuses are credited when both the team-size and career-earnings conditions of a rank are met.
+
+3. Withdrawals
+A maximum of 2 withdrawals per calendar month are permitted, with a minimum gap of 15 days between requests. Slot 1 covers the 1st-15th and Slot 2 the 16th-31st. Every request is manually verified by the Partix admin before payout. UPI payouts are usually completed within 24 hours; bank transfers take 2-3 business days.
+
+4. Accuracy of payment details
+You are responsible for the UPI ID and bank details saved in your profile. Partix is not liable for transfers made to incorrect details supplied by you.
+
+5. Account suspension
+Accounts involved in fake joinings, chargebacks or misuse of the platform may be deactivated and pending balances withheld.
+
+6. Changes
+These terms may be updated from time to time. Continued use of the app constitutes acceptance of the latest version.''';
+
+  static const String privacyText = '''
+1. What we collect
+Name, phone number, e-mail, date of birth, address, profile photo, UPI ID and bank details, plus app usage and device information required for security and notifications.
+
+2. How it is used
+Your data is used only to operate your Partix account: computing commissions, building your team tree, processing withdrawals, and sending you earning, rank and payout notifications.
+
+3. Storage and security
+Data is stored in Google Firebase (Firestore, Storage, Authentication). Bank account details are encrypted before storage and are displayed with only the last 4 digits visible. Access is restricted by server-side security rules.
+
+4. Sharing
+We never sell your data. Payment details are shared only with the payment channel used to complete your withdrawal. Aggregate, non-identifying statistics may be used to improve the app.
+
+5. Your controls
+You can edit your personal and payment information at any time from the Profile screen, disable notification categories, and request account deletion by contacting Partix support.
+
+6. Contact
+Questions about privacy: support@partix.com''';
 }

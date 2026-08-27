@@ -4,6 +4,8 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:partix/core/constants/app_colors.dart';
 import 'package:partix/core/constants/app_dimensions.dart';
@@ -56,6 +58,21 @@ class _EarningsDetailScreenState extends ConsumerState<EarningsDetailScreen> {
         title: const Text(AppStrings.earnings),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
+        actions: [
+          IconButton(
+            tooltip: 'Copy summary',
+            icon: const Icon(Icons.copy_all_rounded),
+            onPressed: () => _copySummary(byType, total, periodEarnings.length),
+          ),
+          IconButton(
+            tooltip: 'Share summary',
+            icon: const Icon(Icons.ios_share_rounded),
+            onPressed: () => Share.share(
+              _summaryText(byType, total, periodEarnings.length),
+              subject: 'PARTIX earnings summary',
+            ),
+          ),
+        ],
       ),
       body: provider.loading
           ? const Center(child: CircularProgressIndicator())
@@ -179,6 +196,32 @@ class _EarningsDetailScreenState extends ConsumerState<EarningsDetailScreen> {
     if (label.contains('L5')) return Icons.looks_5;
     if (label.contains('Rank')) return Icons.military_tech;
     return Icons.paid;
+  }
+
+  String _summaryText(
+      Map<String, _TypeSummary> byType, double total, int count) {
+    final period = ref.read(earningsProvider).periodLabel();
+    final buffer = StringBuffer()
+      ..writeln('PARTIX — Earnings Summary')
+      ..writeln('Period: $period')
+      ..writeln('Transactions: $count')
+      ..writeln('Total: ${CurrencyFormatter.format(total)}')
+      ..writeln('──────────────');
+    for (final e in byType.values) {
+      buffer.writeln(
+          '${e.label}: ${CurrencyFormatter.format(e.amount)} (${e.count})');
+    }
+    return buffer.toString();
+  }
+
+  void _copySummary(Map<String, _TypeSummary> byType, double total, int count) {
+    Clipboard.setData(ClipboardData(text: _summaryText(byType, total, count)));
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: Text('Earnings summary copied'),
+      ),
+    );
   }
 }
 

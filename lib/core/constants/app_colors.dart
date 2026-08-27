@@ -28,6 +28,13 @@ class AppColors {
     colors: [brandPrimary, brandAccent],
   );
 
+  /// Premium accent used for money/earnings highlights.
+  static const Color gold = Color(0xFFFFC857);
+
+  /// Frosted-glass surface fill + hairline border (glassmorphism).
+  static const Color glassFill = Color(0x14FFFFFF);
+  static const Color glassBorder = Color(0x1FFFFFFF);
+
   // ── SEMANTIC ──────────────────────────────────────────────
   static const Color success = Color(0xFF10B981); // Emerald
   static const Color warning = Color(0xFFF59E0B); // Amber
@@ -79,18 +86,36 @@ class AppColors {
   }
 
   // ── EARNING CARD GRADIENTS ────────────────────────────────
-  static const Gradient todayGradient =
-      LinearGradient(colors: [Color(0xFF1E3A5F), Color(0xFF2E86AB)]);
-  static const Gradient weekGradient =
-      LinearGradient(colors: [Color(0xFF1B4332), Color(0xFF40916C)]);
-  static const Gradient monthGradient =
-      LinearGradient(colors: [Color(0xFF3D0066), Color(0xFF7B2FBE)]);
-  static const Gradient lastMonthGradient =
-      LinearGradient(colors: [Color(0xFF1A1A2E), Color(0xFF4A4A8A)]);
-  static const Gradient yearGradient =
-      LinearGradient(colors: [Color(0xFF7F1D1D), Color(0xFFDC2626)]);
-  static const Gradient teamGradient =
-      LinearGradient(colors: [Color(0xFF0F3460), Color(0xFF533483)]);
+  static const Gradient todayGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Color(0xFF2563EB), Color(0xFF22D3EE)],
+  );
+  static const Gradient weekGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Color(0xFF059669), Color(0xFF34D399)],
+  );
+  static const Gradient monthGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Color(0xFF7C3AED), Color(0xFFC084FC)],
+  );
+  static const Gradient lastMonthGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Color(0xFF475569), Color(0xFF94A3B8)],
+  );
+  static const Gradient yearGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Color(0xFFDC2626), Color(0xFFFB923C)],
+  );
+  static const Gradient teamGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Color(0xFF0EA5E9), Color(0xFF6366F1)],
+  );
   static const Gradient grossGradient = brandGradient;
 
   /// Earnings card gradient by key.

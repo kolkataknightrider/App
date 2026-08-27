@@ -4,11 +4,13 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:partix/core/constants/app_colors.dart';
 import 'package:partix/core/constants/app_dimensions.dart';
 import 'package:partix/core/constants/app_strings.dart';
+import 'package:partix/core/constants/app_routes.dart';
 import 'package:partix/core/providers/providers.dart';
 import 'package:partix/core/models/user_model.dart';
 import 'package:partix/core/models/withdrawal_model.dart';
@@ -42,6 +44,7 @@ class DashboardScreen extends ConsumerWidget {
         .firstOrNull;
 
     return Scaffold(
+      extendBodyBehindAppBar: false,
       appBar: PartixAppBar(
         avatarUrl: userState.user?.profilePhotoUrl,
         notificationCount: ref.watch(notificationProvider).unreadCount,
@@ -53,7 +56,16 @@ class DashboardScreen extends ConsumerWidget {
                 Expanded(child: Center(child: Text('Showing cached data'))),
               ],
             )
-          : _buildBody(context, ref, userState.user, dash, pending),
+          : DecoratedBox(
+              decoration: const BoxDecoration(
+                gradient: RadialGradient(
+                  center: Alignment(-0.8, -1),
+                  radius: 1.4,
+                  colors: [Color(0x2E6C63FF), Color(0x0006B6D4)],
+                ),
+              ),
+              child: _buildBody(context, ref, userState.user, dash, pending),
+            ),
     );
   }
 
@@ -113,18 +125,21 @@ class DashboardScreen extends ConsumerWidget {
                   crossAxisCount: 2,
                   mainAxisSpacing: 12,
                   crossAxisSpacing: 12,
-                  childAspectRatio: 1.5,
+                  childAspectRatio: 1.42,
                   children: [
                     EarningMetricCard(
                       label: AppStrings.todayEarnings,
                       amount: CurrencyFormatter.format(user.todayEarnings),
+                      value: user.todayEarnings,
                       percentChange: '+12% vs yday',
                       icon: Icons.wb_sunny_outlined,
+                      onTap: () => context.go(AppRoutes.earnings),
                       gradient: AppColors.earningsGradient('today'),
                     ),
                     EarningMetricCard(
                       label: AppStrings.weeklyEarnings,
                       amount: CurrencyFormatter.format(user.weeklyEarnings),
+                      value: user.weeklyEarnings,
                       percentChange: '+8% vs lweek',
                       icon: Icons.calendar_view_week_outlined,
                       gradient: AppColors.earningsGradient('week'),
@@ -132,6 +147,7 @@ class DashboardScreen extends ConsumerWidget {
                     EarningMetricCard(
                       label: AppStrings.monthlyEarnings,
                       amount: CurrencyFormatter.format(user.monthlyEarnings),
+                      value: user.monthlyEarnings,
                       percentChange: '+15% growth',
                       icon: Icons.calendar_month_outlined,
                       gradient: AppColors.earningsGradient('month'),
@@ -139,6 +155,7 @@ class DashboardScreen extends ConsumerWidget {
                     EarningMetricCard(
                       label: AppStrings.lastMonthEarnings,
                       amount: CurrencyFormatter.format(user.lastMonthEarnings),
+                      value: user.lastMonthEarnings,
                       percentChange: 'Final',
                       icon: Icons.history_outlined,
                       gradient: AppColors.earningsGradient('lastMonth'),
@@ -146,6 +163,7 @@ class DashboardScreen extends ConsumerWidget {
                     EarningMetricCard(
                       label: AppStrings.yearlyEarnings,
                       amount: CurrencyFormatter.format(user.yearlyEarnings),
+                      value: user.yearlyEarnings,
                       percentChange: 'Jan–Present',
                       icon: Icons.show_chart_outlined,
                       gradient: AppColors.earningsGradient('year'),
@@ -153,8 +171,10 @@ class DashboardScreen extends ConsumerWidget {
                     EarningMetricCard(
                       label: AppStrings.teamEarnings,
                       amount: CurrencyFormatter.format(user.totalTeamEarnings),
+                      value: user.totalTeamEarnings,
                       percentChange: 'All ${user.totalTeamSize} members',
                       icon: Icons.groups_outlined,
+                      onTap: () => context.go(AppRoutes.team),
                       gradient: AppColors.earningsGradient('team'),
                     ),
                   ],
@@ -165,10 +185,13 @@ class DashboardScreen extends ConsumerWidget {
                 EarningMetricCard(
                   label: AppStrings.grossCareerEarnings,
                   amount: CurrencyFormatter.format(user.grossCareerEarnings),
+                  value: user.grossCareerEarnings,
                   percentChange:
                       'Progress to next rank: ${RankService.progressPercent(user).toInt()}%',
                   icon: Icons.diamond_outlined,
                   gradient: AppColors.earningsGradient('gross'),
+                  large: true,
+                  onTap: () => context.go(AppRoutes.earnings),
                 ),
                 const SizedBox(height: AppDimensions.md),
 

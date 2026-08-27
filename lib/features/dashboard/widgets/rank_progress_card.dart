@@ -10,6 +10,7 @@ import 'package:partix/core/constants/app_dimensions.dart';
 import 'package:partix/core/models/user_model.dart';
 import 'package:partix/core/services/rank_service.dart';
 import 'package:partix/core/utils/currency_formatter.dart';
+import 'package:partix/shared/widgets/glass.dart';
 
 class RankProgressCard extends StatelessWidget {
   final UserModel user;
@@ -26,17 +27,18 @@ class RankProgressCard extends StatelessWidget {
         ? 1.0
         : (user.grossCareerEarnings / next.minCareerEarnings).clamp(0.0, 1.0);
 
-    return Container(
+    return GlassCard(
       padding: const EdgeInsets.all(AppDimensions.md),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            current.color.withOpacity(0.25),
-            AppColors.brandAccent.withOpacity(0.15),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
-        border: Border.all(color: current.color.withOpacity(0.4)),
+      radius: 24,
+      accent: current.color,
+      overlay: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [
+          current.color.withOpacity(0.22),
+          AppColors.brandAccent.withOpacity(0.12),
+          Colors.white.withOpacity(0.03),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,11 +67,12 @@ class RankProgressCard extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _progressRow('Team Size', user.totalTeamSize, next?.minTeamSize ?? 0,
-              teamProgress),
+              teamProgress,
+              color: AppColors.success),
           const SizedBox(height: 10),
           _progressRow('Earnings', user.grossCareerEarnings,
               next?.minCareerEarnings ?? 0, earnProgress,
-              isCurrency: true),
+              isCurrency: true, color: AppColors.gold),
           const SizedBox(height: 12),
           if (next != null)
             Text(
@@ -86,7 +89,7 @@ class RankProgressCard extends StatelessWidget {
   }
 
   Widget _progressRow(String label, num value, num target, double percent,
-      {bool isCurrency = false}) {
+      {bool isCurrency = false, Color color = AppColors.brandPrimary}) {
     final valueStr = isCurrency
         ? CurrencyFormatter.format(value.toDouble())
         : value.toString();
@@ -110,9 +113,13 @@ class RankProgressCard extends StatelessWidget {
         const SizedBox(height: 6),
         LinearPercentIndicator(
           percent: percent,
-          lineHeight: 8,
-          backgroundColor: Colors.white.withOpacity(0.12),
-          progressColor: AppColors.brandPrimary,
+          lineHeight: 9,
+          animation: true,
+          animationDuration: 900,
+          backgroundColor: Colors.white.withOpacity(0.10),
+          linearGradient: LinearGradient(
+            colors: [color, color.withOpacity(0.55)],
+          ),
           barRadius: const Radius.circular(10),
           padding: EdgeInsets.zero,
         ),

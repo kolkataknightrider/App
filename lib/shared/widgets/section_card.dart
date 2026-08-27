@@ -4,7 +4,9 @@
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
+import 'package:partix/core/constants/app_colors.dart';
 import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/shared/widgets/glass.dart';
 
 class SectionCard extends StatelessWidget {
   final String title;
@@ -22,23 +24,33 @@ class SectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GlassCard(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: AppDimensions.md),
       padding: padding ?? const EdgeInsets.all(AppDimensions.md),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
-      ),
+      radius: 22,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(title,
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w600)),
+              Row(
+                children: [
+                  Container(
+                    width: 3,
+                    height: 15,
+                    decoration: BoxDecoration(
+                      gradient: AppColors.brandGradient,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(title,
+                      style: const TextStyle(
+                          fontSize: 15.5, fontWeight: FontWeight.w700)),
+                ],
+              ),
               if (trailing != null) trailing!,
             ],
           ),
