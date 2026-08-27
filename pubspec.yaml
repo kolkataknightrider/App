@@ -1,0 +1,101 @@
+# ════════════════════════════════════════════════════════════════
+# PARTIX MLM APPLICATION — PACKAGE CONFIGURATION
+# ════════════════════════════════════════════════════════════════
+
+name: partix
+description: Partix MLM - Earnings Transparency & Team Management
+version: 1.0.0+1
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # ── FIREBASE SERVICES ──────────────────────────────────────
+  firebase_core: ^2.24.0
+  firebase_auth: ^4.15.0
+  cloud_firestore: ^4.13.6
+  firebase_storage: ^11.5.6
+  firebase_messaging: ^14.7.9
+  firebase_analytics: ^10.8.0
+  firebase_crashlytics: ^3.4.8
+  cloud_functions: ^4.5.8
+
+  # ── STATE MANAGEMENT ───────────────────────────────────────
+  flutter_riverpod: ^2.4.9
+
+  # ── NAVIGATION ─────────────────────────────────────────────
+  go_router: ^13.0.0
+
+  # ── UI COMPONENTS ──────────────────────────────────────────
+  fl_chart: ^0.66.0
+  flutter_animate: ^4.4.0
+  shimmer: ^3.0.0
+  cached_network_image: ^3.3.1
+  image_picker: ^1.0.7
+  flutter_svg: ^2.0.10
+  lottie: ^3.0.0
+  percent_indicator: ^4.2.3
+  pinput: ^3.0.1
+  dotted_border: ^2.1.0
+  flutter_staggered_animations: ^1.1.1
+  badges: ^3.1.2
+  expandable: ^5.0.1
+  timeline_tile: ^2.0.0
+
+  # ── LOCAL STORAGE & OFFLINE ────────────────────────────────
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  flutter_secure_storage: ^9.0.0
+  shared_preferences: ^2.2.2
+  connectivity_plus: ^5.0.2
+
+  # ── LOCALIZATION (English + Hindi) ─────────────────────────
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.19.0
+
+  # ── BIOMETRIC AUTH ─────────────────────────────────────────
+  local_auth: ^2.1.8
+
+  # ── UTILITIES ──────────────────────────────────────────────
+  equatable: ^2.0.5
+  logger: ^2.0.2+1
+  url_launcher: ^6.2.4
+  share_plus: ^7.2.2
+  package_info_plus: ^5.0.1
+  uuid: ^4.3.3
+  crypto: ^3.0.3
+  encrypt: ^5.0.3
+  pdf: ^3.10.8
+  path_provider: ^2.1.2
+  open_file: ^3.3.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true
+  generate: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/animations/
+    - assets/fonts/
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700

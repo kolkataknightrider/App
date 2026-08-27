@@ -1,0 +1,64 @@
+# ════════════════════════════════════════════════════════════════
+# PARTIX — Release
+# On a version tag (v*.*.*): build release AAB + APK and publish a
+# GitHub Release. Requires REAL Firebase secrets (see repo Secrets).
+# ════════════════════════════════════════════════════════════════
+
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build & Publish Release
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.x'
+          channel: 'stable'
+          cache: true
+
+      - name: Ensure native scaffold exists
+        run: |
+          if [ ! -f android/app/build.gradle ]; then
+            flutter create --org com.partix --project-name partix .
+          fi
+
+      - name: Write google-services.json from secret
+        run: |
+          echo "${{ secrets.GOOGLE_SERVICES_JSON }}" > android/app/google-services.json
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build App Bundle (AAB)
+        run: flutter build appbundle --release --no-pub
+
+      - name: Build APK
+        run: flutter build apk --release --split-per-abi --no-pub
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            build/app/outputs/bundle/release/app-release.aab
+            build/app/outputs/flutter-apk/*.apk
+          generate_release_notes: true

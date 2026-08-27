@@ -1,0 +1,22 @@
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+*.iml
+*.keystore
+/android/app/google-services.json
+/android/key.properties
+ios/Runner/GoogleService-Info.plist
+
+# Local assets to be supplied by the developer
+assets/fonts/*.ttf
+assets/images/*.png
+assets/icons/*.svg
+assets/animations/*.json
+
+# Secrets
+*.env

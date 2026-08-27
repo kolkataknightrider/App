@@ -1,0 +1,84 @@
+# ════════════════════════════════════════════════════════════════
+# PARTIX — Android Build
+# Builds a release APK/AAB. Requires the native project scaffold
+# (run `flutter create .` once) and a real google-services.json.
+# For CI we inject a placeholder google-services.json so the
+# Gradle step can resolve; the resulting binary is NOT for release.
+# ════════════════════════════════════════════════════════════════
+
+name: Android Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+      - '.github/**'
+
+jobs:
+  build-android:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.x'
+          channel: 'stable'
+          cache: true
+
+      - name: Ensure native scaffold exists
+        run: |
+          if [ ! -f android/app/build.gradle ]; then
+            echo "::warning::android/ not scaffolded — running 'flutter create .'"
+            flutter create --org com.partix --project-name partix .
+          fi
+
+      - name: Placeholder google-services.json (CI only)
+        run: |
+          if [ ! -f android/app/google-services.json ]; then
+            cat > android/app/google-services.json << 'EOF'
+          {
+            "project_info": {
+              "project_number": "000000000000",
+              "project_id": "partix-demo"
+            },
+            "client": [
+              {
+                "client_info": {
+                  "mobilesdk_app_id": "1:000000000000:android:0000000000000000000000",
+                  "android_client_info": { "package_name": "com.partix" }
+                },
+                "oauth_client": [],
+                "api_key": [{ "current_key": "AIzaSyDUMMYDUMMYDUMMYDUMMYDUMMYDUMMY000" }],
+                "services": { "appinvite_service": { "other_platform_oauth_client": [] } }
+              }
+            ],
+            "configuration_version": "1"
+          }
+          EOF
+          fi
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build release APK
+        run: flutter build apk --release --no-pub
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: partix-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error

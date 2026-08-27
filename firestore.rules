@@ -1,0 +1,47 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Users: can only read/write their own document
+    match /users/{userId} {
+      allow read: if request.auth.uid == userId;
+      allow update: if request.auth.uid == userId
+        && !request.resource.data.diff(resource.data)
+             .affectedKeys()
+             .hasAny(['grossCareerEarnings', 'availableBalance',
+                      'rank', 'rankLevel', 'joiningFee']);
+    }
+
+    // Earnings: read own, NO user writes (Cloud Functions only)
+    match /earnings/{userId}/records/{docId} {
+      allow read: if request.auth.uid == userId;
+      allow write: if false;
+    }
+
+    // Withdrawals: create own, read own, NO updates by user
+    match /withdrawals/{withdrawalId} {
+      allow read: if request.auth.uid == resource.data.userId;
+      allow create: if request.auth.uid == request.resource.data.userId
+        && request.resource.data.status == 'pending';
+      allow update: if false;
+    }
+
+    // Team tree: read only
+    match /team_tree/{userId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
+    // Notifications: read own
+    match /notifications/{userId}/messages/{msgId} {
+      allow read, update: if request.auth.uid == userId;
+      allow write: if false;
+    }
+
+    // App config: read only for all authenticated users
+    match /app_config/settings {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+  }
+}

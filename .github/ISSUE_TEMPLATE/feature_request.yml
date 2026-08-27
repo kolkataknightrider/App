@@ -1,0 +1,36 @@
+name: ✨ Feature Request
+description: Suggest a new feature or improvement for PARTIX
+title: "[FEATURE] "
+labels: ["enhancement", "triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / motivation
+      description: What problem would this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: Describe the feature and how it should work.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Affected area
+      options:
+        - label: Auth
+        - label: Dashboard
+        - label: Team
+        - label: Earnings
+        - label: Withdrawal
+        - label: Profile
+        - label: Notifications
+        - label: Backend / Cloud Functions
