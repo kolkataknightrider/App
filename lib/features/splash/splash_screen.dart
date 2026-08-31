@@ -41,14 +41,14 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               // ══ CLAY LOGO PUCK ═══════════════════════════════
-              TiltCard(
+              const TiltCard(
                 child: ClayContainer(
                   pressable: true,
                   radius: 46,
                   elevation: 1.6,
                   gradient: ClayPalette.brandClayGradient,
-                  padding: const EdgeInsets.all(30),
-                  child: const Text(
+                  padding: EdgeInsets.all(30),
+                  child: Text(
                     'P',
                     style: TextStyle(
                       fontSize: 56,
@@ -60,7 +60,10 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               )
                   .animate()
-                  .scaleXY(begin: 0.4, end: 1, duration: 900.ms,
+                  .scaleXY(
+                      begin: 0.4,
+                      end: 1,
+                      duration: 900.ms,
                       curve: Curves.easeOutBack)
                   .fadeIn(duration: 600.ms)
                   .then()

@@ -119,8 +119,8 @@ class _CustomButtonState extends State<CustomButton>
                     child: IgnorePointer(
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                              AppDimensions.radiusButton),
+                          borderRadius:
+                              BorderRadius.circular(AppDimensions.radiusButton),
                           gradient: LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
@@ -186,7 +186,8 @@ class _CustomButtonState extends State<CustomButton>
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               if (widget.icon != null) ...[
-                                Icon(widget.icon, color: Colors.white, size: 20),
+                                Icon(widget.icon,
+                                    color: Colors.white, size: 20),
                                 const SizedBox(width: 10),
                               ],
                               Text(

@@ -16,6 +16,7 @@ import 'package:partix/core/constants/app_strings.dart';
 import 'package:partix/core/constants/clay_palette.dart';
 import 'package:partix/shared/widgets/app_menu_sheet.dart';
 import 'package:partix/shared/widgets/clay.dart';
+import 'package:partix/shared/widgets/glass.dart';
 
 class PartixAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -68,13 +69,12 @@ class PartixAppBar extends StatelessWidget implements PreferredSizeWidget {
                 const SizedBox(width: 8),
 
                 // ── Clay wordmark pill ──
-                ClayContainer(
+                const ClayContainer(
                   radius: 14,
                   elevation: 1.2,
                   gradient: ClayPalette.brandClayGradient,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-                  child: const Text(
+                  padding: EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+                  child: Text(
                     'PARTIX',
                     style: TextStyle(
                       color: Colors.white,
@@ -97,8 +97,7 @@ class PartixAppBar extends StatelessWidget implements PreferredSizeWidget {
                     children: [
                       _CircleIcon(
                         icon: Icons.notifications_none_rounded,
-                        onTap: () =>
-                            context.push(AppRoutes.notificationsRoute),
+                        onTap: () => context.push(AppRoutes.notificationsRoute),
                       ),
                       if (notificationCount > 0)
                         Positioned(
@@ -140,8 +139,8 @@ class PartixAppBar extends StatelessWidget implements PreferredSizeWidget {
                 // ── Avatar → profile ──
                 if (showAvatar)
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 6, right: AppDimensions.sm),
+                    padding:
+                        const EdgeInsets.only(left: 6, right: AppDimensions.sm),
                     child: TapScale(
                       onTap: () => context.go(AppRoutes.profile),
                       child: Container(
@@ -160,10 +159,10 @@ class PartixAppBar extends StatelessWidget implements PreferredSizeWidget {
                         child: CircleAvatar(
                           radius: 16,
                           backgroundColor: ClayPalette.surfaceDark,
-                          backgroundImage: (avatarUrl != null &&
-                                  avatarUrl!.isNotEmpty)
-                              ? CachedNetworkImageProvider(avatarUrl!)
-                              : null,
+                          backgroundImage:
+                              (avatarUrl != null && avatarUrl!.isNotEmpty)
+                                  ? CachedNetworkImageProvider(avatarUrl!)
+                                  : null,
                           child: (avatarUrl == null || avatarUrl!.isEmpty)
                               ? const Icon(Icons.person_rounded,
                                   size: 17, color: ClayPalette.clayLavender)

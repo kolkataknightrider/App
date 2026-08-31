@@ -54,8 +54,7 @@ class _MagneticState extends State<Magnetic> {
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      onHover: (e) =>
-          _apply(e.localPosition, context.size ?? const Size(1, 1)),
+      onHover: (e) => _apply(e.localPosition, context.size ?? const Size(1, 1)),
       onExit: (_) => _reset(),
       child: Listener(
         onPointerMove: (e) =>
@@ -305,11 +304,11 @@ class StaggeredReveal extends StatelessWidget {
         for (int i = 0; i < children.length; i++)
           _StaggeredItem(
             key: ValueKey(i),
-            child: children[i],
             delay: interval * i,
             duration: duration,
             slideOffset: slideOffset,
             vertical: vertical,
+            child: children[i],
           ),
       ],
     );

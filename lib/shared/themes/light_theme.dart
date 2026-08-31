@@ -59,13 +59,12 @@ ThemeData buildLightTheme() {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
-        borderSide:
-            const BorderSide(color: ClayPalette.clayIndigo, width: 1.8),
+        borderSide: const BorderSide(color: ClayPalette.clayIndigo, width: 1.8),
       ),
-      labelStyle: const TextStyle(
-          color: Color(0xFF6E6888), fontFamily: 'Poppins'),
-      hintStyle: const TextStyle(
-          color: Color(0xFF9B93B8), fontFamily: 'Poppins'),
+      labelStyle:
+          const TextStyle(color: Color(0xFF6E6888), fontFamily: 'Poppins'),
+      hintStyle:
+          const TextStyle(color: Color(0xFF9B93B8), fontFamily: 'Poppins'),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(

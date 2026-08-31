@@ -67,10 +67,10 @@ ThemeData buildDarkTheme() {
         borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
         borderSide: const BorderSide(color: AppColors.error),
       ),
-      labelStyle: const TextStyle(
-          color: Color(0xFF9B93C4), fontFamily: 'Poppins'),
-      hintStyle: const TextStyle(
-          color: Color(0xFF5F5880), fontFamily: 'Poppins'),
+      labelStyle:
+          const TextStyle(color: Color(0xFF9B93C4), fontFamily: 'Poppins'),
+      hintStyle:
+          const TextStyle(color: Color(0xFF5F5880), fontFamily: 'Poppins'),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(

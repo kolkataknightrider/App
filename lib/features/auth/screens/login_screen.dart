@@ -50,18 +50,21 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 children: [
                   // ══ HERO ══════════════════════════════════════
                   const SizedBox(height: 8),
-                  Magnetic(
+                  const Magnetic(
                     child: ClayContainer(
                       radius: 40,
                       elevation: 1.6,
                       gradient: ClayPalette.brandClayGradient,
-                      padding: const EdgeInsets.all(24),
-                      child: const Icon(Icons.auto_awesome_rounded,
+                      padding: EdgeInsets.all(24),
+                      child: Icon(Icons.auto_awesome_rounded,
                           color: Colors.white, size: 40),
                     ),
                   )
                       .animate()
-                      .scaleXY(begin: 0.4, end: 1, duration: 900.ms,
+                      .scaleXY(
+                          begin: 0.4,
+                          end: 1,
+                          duration: 900.ms,
                           curve: Curves.easeOutBack)
                       .fadeIn(duration: 600.ms)
                       .then()
@@ -71,9 +74,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                   const SizedBox(height: 22),
 
-                  ShimmerText(
+                  const ShimmerText(
                     text: 'PARTIX',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Poppins',
                       fontSize: 42,
                       fontWeight: FontWeight.w700,
@@ -116,12 +119,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         children: [
                           Row(
                             children: [
-                              ClayContainer(
+                              const ClayContainer(
                                 radius: 18,
                                 elevation: 1.4,
                                 gradient: ClayPalette.brandClayGradient,
-                                padding: const EdgeInsets.all(11),
-                                child: const Icon(Icons.lock_rounded,
+                                padding: EdgeInsets.all(11),
+                                child: Icon(Icons.lock_rounded,
                                     color: Colors.white, size: 20),
                               ),
                               const SizedBox(width: 14),
@@ -155,11 +158,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ],
                       ),
                     ),
-                  )
-                      .animate()
-                      .fadeIn(delay: 350.ms, duration: 650.ms)
-                      .slideY(begin: 0.22, end: 0, delay: 350.ms,
-                          duration: 700.ms, curve: Curves.easeOutCubic),
+                  ).animate().fadeIn(delay: 350.ms, duration: 650.ms).slideY(
+                      begin: 0.22,
+                      end: 0,
+                      delay: 350.ms,
+                      duration: 700.ms,
+                      curve: Curves.easeOutCubic),
 
                   const SizedBox(height: AppDimensions.md),
 
