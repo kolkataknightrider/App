@@ -1,16 +1,18 @@
 // ════════════════════════════════════════════════════════════════
 // FILE: lib/features/splash/splash_screen.dart
-// Cinematic splash: aurora backdrop, glowing ring, logo reveal and
-// a progress sweep — then auto-redirect (router handles auth).
+// Cinematic CLAY splash: drifting clay blobs, glowing clay logo
+// puck, flip-text tagline and a sweeping progress bar — then
+// auto-redirect (router handles auth).
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:partix/core/constants/app_colors.dart';
 import 'package:partix/core/constants/app_strings.dart';
 import 'package:partix/core/constants/app_routes.dart';
-import 'package:partix/shared/widgets/aurora_background.dart';
+import 'package:partix/core/constants/clay_palette.dart';
+import 'package:partix/shared/widgets/clay.dart';
+import 'package:partix/shared/widgets/clay_animations.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -23,101 +25,114 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 1900), () {
+    Future.delayed(const Duration(milliseconds: 2300), () {
       if (mounted) context.go(AppRoutes.dashboard);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final dark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      body: AuroraBackground(
+      body: ClayBlobBackground(
         cycleSeconds: 12,
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
-                height: 230,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    const GlowRing(size: 260),
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ShaderMask(
-                          shaderCallback: (r) => const LinearGradient(
-                            colors: [
-                              Colors.white,
-                              Color(0xFFB9B4FF),
-                              Color(0xFF7FE7FF),
-                            ],
-                          ).createShader(r),
-                          child: const Text(
-                            'PARTIX',
-                            style: TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 9,
-                              color: Colors.white,
-                            ),
-                          ),
-                        )
-                            .animate()
-                            .fadeIn(duration: 700.ms)
-                            .scaleXY(
-                                begin: 0.7,
-                                end: 1,
-                                duration: 900.ms,
-                                curve: Curves.easeOutBack)
-                            .then()
-                            .shimmer(
-                                duration: 1400.ms,
-                                color: Colors.white.withOpacity(0.9)),
-                        const SizedBox(height: 12),
-                        Text(
-                          AppStrings.tagline.toUpperCase(),
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.7),
-                            fontSize: 11,
-                            letterSpacing: 5,
-                          ),
-                        )
-                            .animate()
-                            .fadeIn(delay: 600.ms, duration: 700.ms)
-                            .slideY(begin: 0.8, end: 0),
-                      ],
+              // ══ CLAY LOGO PUCK ═══════════════════════════════
+              TiltCard(
+                child: ClayContainer(
+                  pressable: true,
+                  radius: 46,
+                  elevation: 1.6,
+                  gradient: ClayPalette.brandClayGradient,
+                  padding: const EdgeInsets.all(30),
+                  child: const Text(
+                    'P',
+                    style: TextStyle(
+                      fontSize: 56,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                      fontFamily: 'Poppins',
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              )
+                  .animate()
+                  .scaleXY(begin: 0.4, end: 1, duration: 900.ms,
+                      curve: Curves.easeOutBack)
+                  .fadeIn(duration: 600.ms)
+                  .then()
+                  .shake(hz: 3, duration: 500.ms, curve: Curves.easeOut),
+
               const SizedBox(height: 28),
 
-              // ── Sweeping progress bar ──
+              // ══ WORDMARK with shimmer ═════════════════════════
+              ShimmerText(
+                text: 'PARTIX',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 40,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 9,
+                  color: dark ? Colors.white : const Color(0xFF2B2740),
+                ),
+              ).animate().fadeIn(delay: 300.ms, duration: 700.ms),
+
+              const SizedBox(height: 14),
+
+              // ══ FLIP-TEXT TAGLINE ═════════════════════════════
+              FlipText(
+                words: const [
+                  'EARN SMART',
+                  'GROW TOGETHER',
+                  'STAY TRANSPARENT',
+                ],
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 4,
+                  color: ClayColors.textDim(context),
+                ),
+              ).animate().fadeIn(delay: 600.ms, duration: 600.ms),
+
+              const SizedBox(height: 34),
+
+              // ══ SWEEPING PROGRESS BAR ════════════════════════
               ClipRRect(
                 borderRadius: BorderRadius.circular(100),
                 child: Container(
-                  width: 150,
-                  height: 3,
-                  color: Colors.white.withOpacity(0.10),
+                  width: 160,
+                  height: 4,
+                  color: ClayColors.surface(context),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Container(
-                      width: 60,
+                      width: 64,
                       decoration: BoxDecoration(
-                        gradient: AppColors.brandGradient,
+                        gradient: ClayPalette.brandClayGradient,
                         borderRadius: BorderRadius.circular(100),
                       ),
                     ).animate(onPlay: (c) => c.repeat()).slideX(
-                          begin: -1.6,
-                          end: 2.6,
+                          begin: -1.7,
+                          end: 2.7,
                           duration: 1300.ms,
                           curve: Curves.easeInOut,
                         ),
                   ),
                 ),
               ).animate().fadeIn(delay: 500.ms),
+
+              const SizedBox(height: 18),
+              Text(
+                AppStrings.appVersion,
+                style: TextStyle(
+                  color: ClayColors.textDim(context),
+                  fontSize: 11,
+                ),
+              ).animate().fadeIn(delay: 900.ms),
             ],
           ),
         ),

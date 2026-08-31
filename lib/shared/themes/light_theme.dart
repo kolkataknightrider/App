@@ -1,72 +1,78 @@
 // ════════════════════════════════════════════════════════════════
 // FILE: lib/shared/themes/light_theme.dart
-// Light theme (SECTION 12 palette).
+// Light CLAYMORPHISM theme — soft pastel clay surfaces.
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
 import 'package:partix/core/constants/app_colors.dart';
 import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/clay_palette.dart';
 
 ThemeData buildLightTheme() {
-  const bg = AppColors.lightBgPrimary;
+  const bg = ClayPalette.bgLight;
+  const onBg = Color(0xFF2B2740);
   return ThemeData(
     brightness: Brightness.light,
     useMaterial3: true,
     fontFamily: 'Poppins',
     scaffoldBackgroundColor: bg,
-    primaryColor: AppColors.brandPrimary,
+    primaryColor: ClayPalette.clayIndigo,
     colorScheme: const ColorScheme.light(
-      primary: AppColors.brandPrimary,
-      secondary: AppColors.brandSecondary,
-      surface: AppColors.lightCard,
+      primary: ClayPalette.clayIndigo,
+      secondary: ClayPalette.clayMint,
+      surface: ClayPalette.surfaceLight,
       error: AppColors.error,
       onPrimary: Colors.white,
-      onSurface: AppColors.lightTextPrimary,
+      onSurface: onBg,
     ),
+    splashFactory: InkSparkle.splashFactory,
     appBarTheme: const AppBarTheme(
-      backgroundColor: bg,
+      backgroundColor: Colors.transparent,
       elevation: 0,
       centerTitle: false,
-      iconTheme: IconThemeData(color: AppColors.lightTextPrimary),
+      iconTheme: IconThemeData(color: onBg),
       titleTextStyle: TextStyle(
         fontFamily: 'Poppins',
         fontSize: 18,
         fontWeight: FontWeight.w600,
-        color: AppColors.lightTextPrimary,
+        color: onBg,
       ),
     ),
     cardTheme: CardTheme(
-      color: AppColors.lightCard,
-      elevation: 1,
+      color: ClayPalette.surfaceLight,
+      elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: Colors.white,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      fillColor: ClayPalette.bgLightAlt,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
         borderSide: BorderSide.none,
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
-        borderSide: const BorderSide(color: AppColors.lightBorder),
+        borderSide: const BorderSide(color: Color(0xFFD7D1EA)),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
-        borderSide: const BorderSide(color: AppColors.brandPrimary, width: 1.5),
+        borderSide:
+            const BorderSide(color: ClayPalette.clayIndigo, width: 1.8),
       ),
       labelStyle: const TextStyle(
-          color: AppColors.textSecondary, fontFamily: 'Poppins'),
-      hintStyle:
-          const TextStyle(color: AppColors.textTertiary, fontFamily: 'Poppins'),
+          color: Color(0xFF6E6888), fontFamily: 'Poppins'),
+      hintStyle: const TextStyle(
+          color: Color(0xFF9B93B8), fontFamily: 'Poppins'),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.brandPrimary,
+        backgroundColor: ClayPalette.clayIndigo,
         foregroundColor: Colors.white,
+        elevation: 8,
+        shadowColor: ClayPalette.clayIndigo.withOpacity(0.45),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
         ),
@@ -79,13 +85,13 @@ ThemeData buildLightTheme() {
       ),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Colors.white,
-      selectedItemColor: AppColors.brandPrimary,
-      unselectedItemColor: AppColors.textTertiary,
+      backgroundColor: ClayPalette.surfaceLight,
+      selectedItemColor: ClayPalette.clayIndigo,
+      unselectedItemColor: Color(0xFF9B93B8),
       type: BottomNavigationBarType.fixed,
       showUnselectedLabels: false,
       showSelectedLabels: true,
     ),
-    dividerColor: AppColors.lightBorder,
+    dividerColor: const Color(0xFFD7D1EA),
   );
 }

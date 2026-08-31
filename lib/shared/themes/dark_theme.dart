@@ -1,43 +1,46 @@
 // ════════════════════════════════════════════════════════════════
 // FILE: lib/shared/themes/dark_theme.dart
-// Dark theme (primary, SECTION 12 palette).
+// Dark CLAYMORPHISM theme (primary) — deep clay + pastel accents.
 // ════════════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
 import 'package:partix/core/constants/app_colors.dart';
 import 'package:partix/core/constants/app_text_styles.dart';
 import 'package:partix/core/constants/app_dimensions.dart';
+import 'package:partix/core/constants/clay_palette.dart';
 
 ThemeData buildDarkTheme() {
-  const bg = AppColors.darkBgPrimary;
+  const bg = ClayPalette.bgDark;
+  const onBg = Color(0xFFF1EEFA);
   return ThemeData(
     brightness: Brightness.dark,
     useMaterial3: true,
     fontFamily: 'Poppins',
     scaffoldBackgroundColor: bg,
-    primaryColor: AppColors.brandPrimary,
+    primaryColor: ClayPalette.clayIndigo,
     colorScheme: const ColorScheme.dark(
-      primary: AppColors.brandPrimary,
-      secondary: AppColors.brandSecondary,
-      surface: AppColors.darkBgSecondary,
+      primary: ClayPalette.clayIndigo,
+      secondary: ClayPalette.clayMint,
+      surface: ClayPalette.surfaceDark,
       error: AppColors.error,
       onPrimary: Colors.white,
-      onSurface: AppColors.textPrimary,
+      onSurface: onBg,
     ),
+    splashFactory: InkSparkle.splashFactory,
     appBarTheme: const AppBarTheme(
-      backgroundColor: bg,
+      backgroundColor: Colors.transparent,
       elevation: 0,
       centerTitle: false,
-      iconTheme: IconThemeData(color: AppColors.textPrimary),
+      iconTheme: IconThemeData(color: onBg),
       titleTextStyle: TextStyle(
         fontFamily: 'Poppins',
         fontSize: 18,
         fontWeight: FontWeight.w600,
-        color: AppColors.textPrimary,
+        color: onBg,
       ),
     ),
     cardTheme: CardTheme(
-      color: AppColors.darkBgSecondary,
+      color: ClayPalette.surfaceDark,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
@@ -45,33 +48,36 @@ ThemeData buildDarkTheme() {
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: AppColors.darkSurface,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      fillColor: ClayPalette.bgDarkAlt,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
         borderSide: BorderSide.none,
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
-        borderSide: const BorderSide(color: AppColors.darkBorder),
+        borderSide: const BorderSide(color: Color(0xFF3A3360)),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
-        borderSide: const BorderSide(color: AppColors.brandPrimary, width: 1.5),
+        borderSide:
+            const BorderSide(color: ClayPalette.clayLavender, width: 1.8),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
         borderSide: const BorderSide(color: AppColors.error),
       ),
       labelStyle: const TextStyle(
-          color: AppColors.textSecondary, fontFamily: 'Poppins'),
-      hintStyle:
-          const TextStyle(color: AppColors.textTertiary, fontFamily: 'Poppins'),
+          color: Color(0xFF9B93C4), fontFamily: 'Poppins'),
+      hintStyle: const TextStyle(
+          color: Color(0xFF5F5880), fontFamily: 'Poppins'),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.brandPrimary,
+        backgroundColor: ClayPalette.clayIndigo,
         foregroundColor: Colors.white,
+        elevation: 8,
+        shadowColor: ClayPalette.clayIndigo.withOpacity(0.45),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
         ),
@@ -85,19 +91,19 @@ ThemeData buildDarkTheme() {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        foregroundColor: AppColors.brandPrimary,
+        foregroundColor: ClayPalette.clayLavender,
         textStyle: const TextStyle(fontFamily: 'Poppins'),
       ),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: AppColors.darkBgSecondary,
-      selectedItemColor: AppColors.brandPrimary,
-      unselectedItemColor: AppColors.textTertiary,
+      backgroundColor: ClayPalette.surfaceDark,
+      selectedItemColor: ClayPalette.clayLavender,
+      unselectedItemColor: Color(0xFF5F5880),
       type: BottomNavigationBarType.fixed,
       showUnselectedLabels: false,
       showSelectedLabels: true,
     ),
-    dividerColor: AppColors.darkBorder,
+    dividerColor: const Color(0xFF3A3360),
     textTheme: const TextTheme(
       displaySmall: AppTextStyles.display,
       headlineMedium: AppTextStyles.h1,

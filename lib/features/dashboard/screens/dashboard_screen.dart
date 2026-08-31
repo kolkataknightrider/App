@@ -15,6 +15,7 @@ import 'package:partix/core/providers/providers.dart';
 import 'package:partix/core/models/user_model.dart';
 import 'package:partix/core/models/withdrawal_model.dart';
 import 'package:partix/shared/widgets/partix_app_bar.dart';
+import 'package:partix/shared/widgets/clay_animations.dart';
 import 'package:partix/shared/widgets/offline_banner.dart';
 import 'package:partix/shared/widgets/error_state_widget.dart';
 import 'package:partix/core/utils/currency_formatter.dart';
@@ -56,14 +57,8 @@ class DashboardScreen extends ConsumerWidget {
                 Expanded(child: Center(child: Text('Showing cached data'))),
               ],
             )
-          : DecoratedBox(
-              decoration: const BoxDecoration(
-                gradient: RadialGradient(
-                  center: Alignment(-0.8, -1),
-                  radius: 1.4,
-                  colors: [Color(0x2E6C63FF), Color(0x0006B6D4)],
-                ),
-              ),
+          : ClayBlobBackground(
+              cycleSeconds: 18,
               child: _buildBody(context, ref, userState.user, dash, pending),
             ),
     );

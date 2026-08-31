@@ -1,29 +1,33 @@
 // ════════════════════════════════════════════════════════════════
 // FILE: lib/shared/widgets/glass.dart
-// Glassmorphism building blocks used across PARTIX.
-// Frosted blur + translucent gradient fill + hairline light border.
+// CLAYMORPHISM building blocks (class names kept for compatibility).
+//
+// GlassCard is the core surface used across EVERY screen — it now
+// renders a tactile clay surface instead of frosted glass, so the
+// whole app adopts the clay look in one place.
 // ════════════════════════════════════════════════════════════════
 
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:partix/core/constants/app_colors.dart';
+import 'package:partix/shared/widgets/clay.dart';
 
-/// A frosted-glass surface with a soft inner highlight and light border.
+/// A clay surface with a soft inner highlight + outer drop shadow.
 ///
-/// Use this instead of [Card] everywhere — it is the core visual language
-/// of the app (rounded, translucent, blurred, subtly glowing).
+/// This is the core visual language of the app. It keeps the old
+/// glassmorphism API (`blur`, `accent`, `overlay`, `interactive`) so
+/// every existing screen adopts clay automatically.
 class GlassCard extends StatefulWidget {
   final Widget child;
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry? margin;
   final double radius;
-  final double blur;
+  final double blur; // retained for API compatibility (unused in clay)
 
-  /// Optional accent used for the border glow + top highlight.
+  /// Optional accent used for the top highlight + border tint.
   final Color? accent;
 
-  /// Extra translucent gradient painted above the blur.
+  /// Extra gradient painted over the clay surface.
   final Gradient? overlay;
 
   final VoidCallback? onTap;
@@ -68,6 +72,7 @@ class _GlassCardState extends State<GlassCard> {
   Widget build(BuildContext context) {
     final accent = widget.accent ?? AppColors.brandPrimary;
     final radius = BorderRadius.circular(widget.radius);
+    final base = ClayColors.surface(context);
 
     final surface = AnimatedScale(
       scale: _pressed ? 0.975 : 1,
@@ -80,43 +85,61 @@ class _GlassCardState extends State<GlassCard> {
         height: widget.height,
         decoration: BoxDecoration(
           borderRadius: radius,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.35),
-              blurRadius: 24,
-              offset: const Offset(0, 12),
-            ),
-            if (_pressed)
-              BoxShadow(
-                color: accent.withOpacity(0.35),
-                blurRadius: 28,
-                spreadRadius: -6,
-              ),
-          ],
+          boxShadow: clayShadows(
+            shadowColor: ClayColors.shadow(context),
+            elevation: _pressed ? 0.55 : 1.0,
+            radius: widget.radius.toDouble(),
+          ),
         ),
-        child: ClipRRect(
-          borderRadius: radius,
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: widget.blur, sigmaY: widget.blur),
-            child: Container(
-              padding: widget.padding,
-              decoration: BoxDecoration(
-                borderRadius: radius,
-                gradient: widget.overlay ??
-                    LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Colors.white.withOpacity(0.09),
-                        Colors.white.withOpacity(0.03),
-                      ],
-                    ),
-                border: Border.all(
-                  color: Colors.white.withOpacity(_pressed ? 0.28 : 0.14),
-                  width: 1,
+        child: Container(
+          padding: widget.padding,
+          decoration: BoxDecoration(
+            borderRadius: radius,
+            gradient: widget.overlay ??
+                LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color.lerp(base, Colors.white, 0.06)!,
+                    base,
+                    Color.lerp(base, Colors.black, 0.08)!,
+                  ],
+                  stops: const [0.0, 0.45, 1.0],
                 ),
-              ),
-              child: widget.child,
+            border: Border.all(
+              color: accent.withOpacity(_pressed ? 0.35 : 0.14),
+              width: 1,
+            ),
+          ),
+          child: ClipRRect(
+            borderRadius: radius,
+            child: Stack(
+              fit: StackFit.passthrough,
+              children: [
+                // Inner clay highlight (top-left) + shade (bottom-right).
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        borderRadius: radius,
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Colors.white.withOpacity(
+                                ClayColors.isDark(context) ? 0.10 : 0.65),
+                            Colors.white.withOpacity(0.0),
+                            Colors.black.withOpacity(
+                                ClayColors.isDark(context) ? 0.26 : 0.10),
+                          ],
+                          stops: const [0.0, 0.5, 1.0],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                widget.child,
+              ],
             ),
           ),
         ),
@@ -147,7 +170,7 @@ class _GlassCardState extends State<GlassCard> {
   }
 }
 
-/// Rounded pill used for chips, filters and small badges.
+/// Rounded clay pill used for chips, filters and small badges.
 class GlassPill extends StatelessWidget {
   final Widget child;
   final Color? accent;
@@ -181,13 +204,18 @@ class GlassPill extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: active
               ? LinearGradient(colors: [a, a.withOpacity(0.65)])
-              : LinearGradient(colors: [
-                  Colors.white.withOpacity(0.07),
-                  Colors.white.withOpacity(0.03),
-                ]),
+              : LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color.lerp(
+                        ClayColors.surface(context), Colors.white, 0.08)!,
+                    ClayColors.surface(context),
+                  ],
+                ),
           borderRadius: BorderRadius.circular(100),
           border: Border.all(
-            color: active ? Colors.transparent : Colors.white.withOpacity(0.12),
+            color: active ? Colors.transparent : a.withOpacity(0.20),
           ),
           boxShadow: active
               ? [
@@ -203,7 +231,7 @@ class GlassPill extends StatelessWidget {
           style: TextStyle(
             fontSize: 12.5,
             fontWeight: active ? FontWeight.w600 : FontWeight.w500,
-            color: active ? Colors.white : AppColors.textSecondary,
+            color: active ? Colors.white : ClayColors.textDim(context),
           ),
           child: child,
         ),
